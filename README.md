@@ -1,3 +1,4 @@
-# fairness-js
+# Fairness in Javascript
 
-Fairness
+Esame di Programmazione per Internet e Web.
+
