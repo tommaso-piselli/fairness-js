@@ -1,20 +1,32 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 #graph-container {
-  width: 20vw; /* make the box 80% of the viewport width */
-  height: 40vh; /* make the box 80% of the viewport height */
-  border: 2px solid; /* add a border around the box */
+  width: 95vw; 
+  height: 70vh; 
+  border: 2px solid; 
   border-color: #282729;
-  display: flex; /* use flexbox to center the SVG */
-  justify-content: center; /* center the SVG horizontally */
-  align-items: center; /* center the SVG vertically */
-  overflow: auto; /* add scrollbars if the SVG gets too big */
-  background-color: cornsilk;
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  overflow: auto; 
+  background-color: whitesmoke;
 }
 
 #graph {
-  width: 95%; /* make the SVG 95% of the box size */
-  height: 95%; /* make the SVG 95% of the box size */
+  width: 95%; 
+  height: 95%; 
+}
+
+#fairness-container {
+  width: 95vw; 
+  height: 10vh; 
+  border: 2px solid; /* add a border around the box */
+  border-color: #282729;
+  display: flex; 
+  justify-content: center;
+  align-items: center; 
+  overflow: auto; /* add scrollbars if the SVG gets too big */
+  background-color: whitesmoke;
 }
