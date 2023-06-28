@@ -5,6 +5,7 @@ body {
 #graph-container {
   width: 95vw; 
   height: 70vh; 
+  margin: auto;
   border: 2px solid; 
   border-color: #282729;
   display: flex; 
@@ -22,6 +23,8 @@ body {
 #fairness-container {
   width: 95vw; 
   height: 10vh; 
+  margin: auto;
+  margin-top: auto;
   border: 2px solid; /* add a border around the box */
   border-color: #282729;
   display: flex; 
