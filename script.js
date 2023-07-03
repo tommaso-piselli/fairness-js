@@ -1,4 +1,4 @@
-d3.json('data/graph.json').then(function(graph) {
+d3.json('data/karate.json').then(function(graph) {
   let svg = d3.select("#graph");
 
   // define dimensions
@@ -12,7 +12,7 @@ d3.json('data/graph.json').then(function(graph) {
   let yExtent = d3.extent(graph.nodes, d => d.y);
 
 
-  // calculate scales: keep the graph's aspect ratio
+  // calculate scales: keep the graph's aspect ratio (?)
   // ToDo: this is not working as intended, need to refresh the page to rescale
   let xRange = xExtent[1] - xExtent[0];
   let yRange = yExtent[1] - yExtent[0];
