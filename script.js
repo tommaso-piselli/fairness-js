@@ -40,10 +40,10 @@ d3.json('data/graph.json').then(function(graph) {
     .data(graph.links)
     .enter()
     .append("line")
-    .attr("x1", function(d) { return xScale(graph.nodes[d.source].x); }) // source node's x coordinate
-    .attr("y1", function(d) { return yScale(graph.nodes[d.source].y); }) // source node's y coordinate
-    .attr("x2", function(d) { return xScale(graph.nodes[d.target].x); }) // target node's x coordinate
-    .attr("y2", function(d) { return yScale(graph.nodes[d.target].y); }) // target node's y coordinate
+    .attr("x1", (d) => xScale(graph.nodes[d.source].x))
+    .attr("y1", (d) => yScale(graph.nodes[d.source].y))
+    .attr("x2", (d) => xScale(graph.nodes[d.target].x))
+    .attr("y2", (d) => yScale(graph.nodes[d.target].y))
     .style("stroke", "black");
 
   // draw nodes
@@ -51,8 +51,8 @@ d3.json('data/graph.json').then(function(graph) {
     .data(graph.nodes)
     .enter()
     .append("circle")
-    .attr("cx", function(d) { return xScale(d.x); }) // x coordinate in the data
-    .attr("cy", function(d) { return yScale(d.y); }) // y coordinate in the data
+    .attr("cx", (d) => xScale(d.x))
+    .attr("cy", (d) => yScale(d.y))
     .attr("r", 5)
-    .style("fill", function(d) { return d.color; }); // color based on data
+    .style("fill", (d) => d.color); // ToDo: cambiare? Non nel json?
 });
