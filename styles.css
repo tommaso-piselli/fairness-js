@@ -4,8 +4,12 @@ body {
 
 #graph-container {
   width: 95vw; 
-  height: 70vh; 
+  height: 70vh;
   border: 2px solid #282729;
+  display: flex;
+  margin: auto;
+  border: 2px solid; 
+  border-color: #282729;
   display: flex;
   justify-content: center; 
   align-items: center; 
@@ -20,8 +24,13 @@ body {
 
 #fairness-container {
   width: 95vw; 
-  height: 10vh; 
+  height: 10vh;
   border: 2px solid #282729; /* add a border around the box */
+  display: flex;
+  margin: auto;
+  margin-top: auto;
+  border: 2px solid; /* add a border around the box */
+  border-color: #282729;
   display: flex;
   justify-content: center;
   align-items: center; 

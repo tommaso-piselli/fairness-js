@@ -3,8 +3,10 @@ import networkx as nx
 from sklearn.preprocessing import MinMaxScaler
 import random
 
-# Load the Karate Club graph
+# Loading
 G = nx.karate_club_graph()
+#G = nx.complete_bipartite_graph(5, 5)
+#G = nx.hypercube_graph(3)
 
 # Compute the layout
 pos = nx.spring_layout(G)
@@ -25,5 +27,5 @@ for node, data in G.nodes(data=True):
 graph_dict = nx.node_link_data(G)
 
 # Write the graph data to a JSON file
-with open('data/graph.json', 'w') as f:
+with open('data/karate.json', 'w') as f:
     json.dump(graph_dict, f)
