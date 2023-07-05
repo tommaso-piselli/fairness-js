@@ -16,3 +16,10 @@ Esame di Programmazione per Internet e Web
 - secondary color (box background): #FBFCFD (almost white)
 - highlight color: #F9E79F (yellow)
 - shadows: #BDC3C7 (dark grey)
+
+##### Dark Theme:
+- background: #121212 (black)
+- main color (borders, titles): #BB86FC (violet)
+- secondary color (box background): #1F1B24 (dark grey)
+- highlight color: #CF6679 (pale pink)
+- shadows: #424242 (grey)
