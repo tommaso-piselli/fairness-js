@@ -1,0 +1,65 @@
+/* Light Mode Colors */
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #FFFFFF;
+}
+
+h1 {
+  text-align: center;
+  color: #2C3E50;
+  padding: 10px;
+  margin-bottom: 15px; /* Aggiunge dello spazio sotto l'h1 */
+  margin-left: 150px;
+  margin-right: 150px;
+}
+
+#first-row {
+  display: flex;
+  justify-content: space-around;
+}
+
+#dataset-container, #graph-container, #tools-container {
+  width: 20vw;
+  height: 50vh;
+  display: flex;
+  margin: 10px;
+  border: 2px solid #2C3E50;
+  border-radius: 12px;
+  background-color: #FBFCFD;
+  padding: 10px;
+  box-shadow: 5px 10px 18px #BDC3C7;
+  justify-content: center;
+  align-items: center;
+}
+
+#graph-container {
+  width: 50vw;
+}
+
+#graph {
+  width: 90%;
+  height: 90%;
+}
+
+#second-row {
+  display: flex;
+  justify-content: space-around;
+}
+
+#fairness-container, #loss-container, #train-container {
+  width: 20vw;
+  height: 30vh;
+  display: flex;
+  margin: 10px;
+  border: 2px solid #2C3E50;
+  border-radius: 12px;
+  background-color: #FBFCFD;
+  padding: 10px;
+  box-shadow: 5px 10px 18px #BDC3C7;
+  justify-content: center;
+  align-items: center;
+}
+
+#loss-container {
+  width: 50vw;
+}
