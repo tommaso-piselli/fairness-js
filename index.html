@@ -11,6 +11,21 @@
 
   <div id="first-row">
     <div id="dataset-container">
+      <div id="file-selector">
+        <h2>Seleziona file</h2>
+        <input type="file" id="fileInput" accept=".json" />
+      </div>
+      <div id="json-display">
+        <h2>Contenuto JSON</h2>
+        <pre id="jsonPreview"></pre>
+      </div>
+      <div id="file-details">
+        <h2>Dettagli file</h2>
+        <p id="graph-name">Nome del grafo: </p>
+        <p id="vertex-count">Numero dei vertici: </p>
+        <p id="edge-count">Numero degli archi: </p>
+        <!-- Aggiungi qui altre informazioni sul file -->
+      </div>
     </div>
     <div id="graph-container">
       <svg id="graph"></svg>

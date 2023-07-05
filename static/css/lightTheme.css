@@ -25,11 +25,12 @@ h1 {
   margin: 10px;
   border: 2px solid #2C3E50;
   border-radius: 12px;
-  background-color: #FBFCFD;
+  background-color: ghostwhite;
   padding: 10px;
   box-shadow: 5px 10px 18px #BDC3C7;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 #graph-container {
@@ -39,6 +40,28 @@ h1 {
 #graph {
   width: 90%;
   height: 90%;
+}
+
+#file-selector,  #json-display,  #file-details {
+  width: 90%;
+  margin: 0.5% auto;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+#file-selector h2,  #json-display h2,  #file-details h2 {
+  margin: 0 0 10px;
+  color: #2C3E50;
+}
+
+#jsonPreview {
+  white-space: pre-wrap; /* Permette al contenuto JSON di andare a capo */
+  overflow: auto;        /* Aggiunge una barra di scorrimento se necessario */
+  height: 150px;         /* Imposta un'altezza massima per il visualizzatore di JSON */
+  background-color: #FFFFFF;
+  border: 1px dashed #2C3E50;
+  border-radius: 5px;
+  padding: 10px;
 }
 
 #second-row {
@@ -53,7 +76,7 @@ h1 {
   margin: 10px;
   border: 2px solid #2C3E50;
   border-radius: 12px;
-  background-color: #FBFCFD;
+  background-color: ghostwhite;
   padding: 10px;
   box-shadow: 5px 10px 18px #BDC3C7;
   justify-content: center;
@@ -63,3 +86,5 @@ h1 {
 #loss-container {
   width: 50vw;
 }
+
+
