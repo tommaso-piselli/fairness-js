@@ -6,4 +6,5 @@ Esame di Programmazione per Internet e Web
 - aggiungere un tool per scegliere esattamente quali nodi colorare (?)
 - aggiungere pulsante per re run dell'applicazione
 
-- ![Alt text](images/mvp_1.png "Title")
+### Idea:
+![Alt text](images/mvp_1.png "Title")
