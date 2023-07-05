@@ -54,12 +54,10 @@ h1 {
   color: #2C3E50;
 }
 
-#jsonPreview {
+#graphJson {
   white-space: pre-wrap; /* Permette al contenuto JSON di andare a capo */
-  overflow: auto;        /* Aggiunge una barra di scorrimento se necessario */
-  height: 150px;         /* Imposta un'altezza massima per il visualizzatore di JSON */
   background-color: #FFFFFF;
-  border: 1px dashed #2C3E50;
+  border: 1px solid #2C3E50;
   border-radius: 5px;
   padding: 10px;
 }
@@ -86,5 +84,10 @@ h1 {
 #loss-container {
   width: 50vw;
 }
+
+span {
+  color: #2C3E50;
+}
+
 
 

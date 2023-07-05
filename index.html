@@ -13,17 +13,17 @@
     <div id="dataset-container">
       <div id="file-selector">
         <h2>Seleziona file</h2>
-        <input type="file" id="fileInput" accept=".json" />
+        <input type="file" id="fileInput"/>
       </div>
       <div id="json-display">
         <h2>Contenuto JSON</h2>
-        <pre id="jsonPreview"></pre>
+        <textarea id='graphJson' name='graphJson' rows='10' cols='30'></textarea>
       </div>
       <div id="file-details">
         <h2>Dettagli file</h2>
-        <p id="graph-name">Nome del grafo: </p>
-        <p id="vertex-count">Numero dei vertici: </p>
-        <p id="edge-count">Numero degli archi: </p>
+        <p id="nome-grafo">Nome del grafo: <b><span id="graph-name"></span></b> </p>
+        <p id="numero-vertici">Numero dei vertici:<b> <span id="vertex-count"> </span></b></p>
+        <p id="numero-archi">Numero degli archi: <b><span id="edge-count"></span></b></p>
         <!-- Aggiungi qui altre informazioni sul file -->
       </div>
     </div>
@@ -41,7 +41,7 @@
   </div>
 
 
-  <script src="static/js/view.js"></script>
+  <script src="static/js/reader.js"></script>
   <!-- <script src="train.js"></script> -->
 
 </body>
