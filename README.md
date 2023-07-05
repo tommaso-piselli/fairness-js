@@ -13,7 +13,7 @@ Esame di Programmazione per Internet e Web
 ##### Light Theme:
 - background: #FFFFFF (white)
 - main color (borders, titles): #2C3E50 (night blue)
-- secondary color (box background): #FBFCFD (almost white)
+- secondary color (box background): #F8F8FFFF (ghostwhite)
 - highlight color: #F9E79F (yellow)
 - shadows: #BDC3C7 (dark grey)
 
