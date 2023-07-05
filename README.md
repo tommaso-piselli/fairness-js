@@ -8,3 +8,11 @@ Esame di Programmazione per Internet e Web
 
 ### Idea:
 ![Alt text](images/mvp_1.png "Title")
+
+#### Theme Colors:
+##### Light Theme:
+- background: #FFFFFF (white)
+- main color (borders, titles): #2C3E50 (night blue)
+- secondary color (box background): #FBFCFD (almost white)
+- highlight color: #F9E79F (yellow)
+- shadows: #BDC3C7 (dark grey)
