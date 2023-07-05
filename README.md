@@ -2,6 +2,7 @@
 
 Esame di Programmazione per Internet e Web
 ### ToDos: 
+- A full screen entra tutto, ma se ridimensiono la pagina mi si sforma tutto. Chiedere.
 - aggiungere un panel per selezionare la percentuale di nodi colorati.
 - aggiungere un tool per scegliere esattamente quali nodi colorare (?)
 - aggiungere pulsante per re run dell'applicazione
