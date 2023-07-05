@@ -1,39 +1,29 @@
 body {
-  font-family: "Roboto", sans-serif;
+    font-family: "Roboto", sans-serif;
 }
 
-#graph-container {
-  width: 95vw; 
-  height: 70vh;
-  border: 2px solid #282729;
-  display: flex;
-  margin: auto;
-  border: 2px solid; 
-  border-color: #282729;
-  display: flex;
-  justify-content: center; 
-  align-items: center; 
-  overflow: auto; 
-  background-color: whitesmoke;
+h1 {
+  text-align: center;
+
+}
+
+  #graph-container {
+    width: 50vw;
+    height: 60vh;
+    display: flex;
+    margin: auto;
+    border: 1px solid;
+    padding: 10px;
+    box-shadow: 5px 10px 18px #888888;
+    border-color: #282729;
+    justify-content: center;
+    align-items: center;
+    background-color: floralwhite;
 }
 
 #graph {
-  width: 95%; 
-  height: 95%; 
+    width: 90%;
+    height: 90%;
 }
 
-#fairness-container {
-  width: 95vw; 
-  height: 10vh;
-  border: 2px solid #282729; /* add a border around the box */
-  display: flex;
-  margin: auto;
-  margin-top: auto;
-  border: 2px solid; /* add a border around the box */
-  border-color: #282729;
-  display: flex;
-  justify-content: center;
-  align-items: center; 
-  overflow: auto; /* add scrollbars if the SVG gets too big */
-  background-color: whitesmoke;
-}
+

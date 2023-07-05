@@ -4,9 +4,10 @@ from sklearn.preprocessing import MinMaxScaler
 import random
 
 # Loading
-G = nx.karate_club_graph()
-#G = nx.complete_bipartite_graph(5, 5)
+#G = nx.karate_club_graph()
+#G = nx.complete_bipartite_graph(3, 3)
 #G = nx.hypercube_graph(3)
+G = nx.balanced_tree(2, 5)
 
 # Compute the layout
 pos = nx.spring_layout(G)
@@ -27,5 +28,5 @@ for node, data in G.nodes(data=True):
 graph_dict = nx.node_link_data(G)
 
 # Write the graph data to a JSON file
-with open('data/karate.json', 'w') as f:
+with open('data/balanced_tree_2_5.json', 'w') as f:
     json.dump(graph_dict, f)
