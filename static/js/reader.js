@@ -1,6 +1,15 @@
 let fileInput = d3.select("#fileInput");
 let jsonPreview = d3.select("#graphJson");
 let svg = d3.select("#graph");
+let graphData;
+let colorButton = d3.select("#colorButton");
+let percentSlider = d3.select("#percentSlider");
+let percentLabel = d3.select("#percentLabel");
+percentSlider.on("input", function() {
+    percentLabel.text(this.value + "%");
+});
+percentLabel.text(percentSlider.property("value") + "%");
+
 
 fileInput.on("change", function() {
     let file = this.files[0];
@@ -10,6 +19,7 @@ fileInput.on("change", function() {
     reader.onload = function(e) {
         try {
             let data = JSON.parse(e.target.result);
+            graphData = data;
 
             // Display JSON content
             let jsonStr = JSON.stringify(data, null, 2);
@@ -32,6 +42,12 @@ fileInput.on("change", function() {
     };
 
     reader.readAsText(file);
+});
+
+
+colorButton.on("click", function() {
+    let percent = d3.select("#percentSlider").property("value");
+    colorNodes(graphData, percent);                                     // ToDo: Button PRESS + graphData => Working!
 });
 
 function plotGraph(graph) {
@@ -70,7 +86,8 @@ function plotGraph(graph) {
     // Draw edges
     svg.selectAll("line")
         .data(graph.links)
-        .enter().append("line")
+        .enter()
+        .append("line")
         .attr("x1", d => xScale(graph.nodes[d.source].x))
         .attr("y1", d => yScale(graph.nodes[d.source].y))
         .attr("x2", d => xScale(graph.nodes[d.target].x))
@@ -80,15 +97,42 @@ function plotGraph(graph) {
     // Draw nodes
     svg.selectAll("circle")
         .data(graph.nodes)
-        .enter().append("circle")
+        .enter()
+        .append("circle")
         .attr("cx", d => xScale(d.x))
         .attr("cy", d => yScale(d.y))
         .attr("r", 4)
-        .style("fill", "#2C3E50")
+        .style("fill", d => d.color) // Usa il colore del nodo
         .on("mouseover", function() { d3.select(this)
-                                                .style("fill", "red")
+                                                .style("fill", "green")
                                                 .attr("r", 6); })                         // Change color on mouseover
         .on("mouseout", function(d) { d3.select(this)
                                                 .style("fill", d.color)
-                                                .attr("r", 4); });                         // Reset color on mouseout
+                                                .attr("r", 4); });                         // ToDo: quando mouseout, ricolora normale
 }
+
+function shuffle(array) {
+    let m = array.length; 
+    let t; 
+    let i;
+    while (m) {
+        i = Math.floor(Math.random() * m--);
+        t = array[m];
+        array[m] = array[i];
+        array[i] = t;
+    }
+    return array;
+}
+
+// ToDO: mouseout ricolora normale  
+function colorNodes(graph, percent) {
+    let ratio = percent / 100;
+    let nodes = shuffle(graph.nodes.slice());
+    let redCount = Math.round(ratio * nodes.length);
+    nodes.forEach((node, i) => {
+        node.color = i < redCount ? "red" : "blue";
+    });
+    plotGraph(graph);
+}
+
+
