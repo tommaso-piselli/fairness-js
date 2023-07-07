@@ -6,6 +6,7 @@ let graphData;
 let colorButton = d3.select("#colorButton");
 let percentSlider = d3.select("#percentSlider");
 let percentLabel = d3.select("#percentLabel");
+let plotButton = d3.select("#press-plot");
 percentSlider.on("input", function() {
     percentLabel.text(this.value + "%");
 });
@@ -50,6 +51,10 @@ colorButton.on("click", function() {
     let percent = d3.select("#percentSlider").property("value");
     colorNodes(graphData, percent);                                     
 });
+
+plotButton.on("click", function() {
+    plotGraph(graphData);
+})
 
 function plotGraph(graph) {
     svg.selectAll("*").remove(); // Clear previous selection

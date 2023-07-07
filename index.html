@@ -13,18 +13,20 @@
   <div id="first-row">
     <div id="dataset-container">
       <div id="file-selector">
-        <h2>Seleziona file</h2>
+        <h2>File Selection</h2>
+        <label for="fileInput" id="inputLabel">Load File</label>
         <input type="file" id="fileInput"/>
+        <button id="press-plot">Plot</button>
       </div>
       <div id="json-display">
-        <h2>Contenuto JSON</h2>
+        <h2>JSON display</h2>
         <textarea id='graphJson' name='graphJson' rows='10' cols='30' style="overflow: auto"></textarea>
       </div>
       <div id="file-details">
-        <h2>Dettagli file</h2>
-        <p id="nome-grafo">Nome del grafo: <b><span id="graph-name"></span></b> </p>
-        <p id="numero-vertici">Numero dei vertici:<b> <span id="vertex-count"> </span></b></p>
-        <p id="numero-archi">Numero degli archi: <b><span id="edge-count"></span></b></p>
+        <h2>File Details</h2>
+        <p id="nome-grafo">Graph name: <b><span id="graph-name"></span></b> </p>
+        <p id="numero-vertici">Number of Vertices:<b> <span id="vertex-count"> </span></b></p>
+        <p id="numero-archi">Number of Edges: <b><span id="edge-count"></span></b></p>
         <!-- Aggiungere qui altre informazioni sul file -->
       </div>
     </div>
@@ -35,8 +37,8 @@
       <div id="color-slider">
         <h2>Color Slider</h2>
         <input type="range" id="percentSlider" min="0" max="100" step="5" value="50">
-        <label id="percentLabel"></label>
         <button id="colorButton">Colora i nodi</button>
+        <span id="percentSpan">Current Percent: <label id="percentLabel"></label></span>
       </div>
       <div id="color-picker">
         <h2>Color Picker </h2>
