@@ -1,3 +1,4 @@
+// Var defition
 let fileInput = d3.select("#fileInput");
 let jsonPreview = d3.select("#graphJson");
 let svg = d3.select("#graph");
@@ -55,6 +56,8 @@ function plotGraph(graph) {
 
     let width = parseFloat(svg.style("width"));
     let height = parseFloat(svg.style("height"));
+
+    console.log(width + " x " + height);
     let margin = 20;
 
     // min max of the scale
@@ -108,7 +111,7 @@ function plotGraph(graph) {
                                                 .attr("r", 6); })                         // Change color on mouseover
         .on("mouseout", function(d) { d3.select(this)
                                                 .style("fill", this.__data__.color)
-                                                .attr("r", 4); });                         // ToDo: quando mouseout, ricolora normale
+                                                .attr("r", 4); });                         
 }
 
 function shuffle(array) {
@@ -124,7 +127,6 @@ function shuffle(array) {
     return array;
 }
 
-// ToDO: mouseout ricolora normale  
 function colorNodes(graph, percent) {
     let ratio = percent / 100;
     let nodes = shuffle(graph.nodes.slice());
