@@ -32,7 +32,7 @@ Esame di Programmazione per Internet e Web
 > Resizing window is not consistent with graph view
 
 # 🔃 Changelog
-> [07/07 - 18:04 🕐] Fix Mouseover bug and graph out of window
+> [07/07 - 18:04 🕐] Fix Mouseover bug and graph out of window\
 > [07/07 - 11:36 🕐] Added color info panel\
 > [07/07 - 11:13 🕐] Added color picking
 
