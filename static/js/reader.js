@@ -92,7 +92,7 @@ function plotGraph(graph) {
         .attr("y1", d => yScale(graph.nodes[d.source].y))
         .attr("x2", d => xScale(graph.nodes[d.target].x))
         .attr("y2", d => yScale(graph.nodes[d.target].y))
-        .style("stroke", "#2C3E50");
+        .style("stroke", "black");
 
     // Draw nodes
     svg.selectAll("circle")
@@ -104,7 +104,7 @@ function plotGraph(graph) {
         .attr("r", 4)
         .style("fill", d => d.color) // Usa il colore del nodo
         .on("mouseover", function() { d3.select(this)
-                                                .style("fill", "green")
+                                                .style("fill", "#03DAC5")
                                                 .attr("r", 6); })                         // Change color on mouseover
         .on("mouseout", function(d) { d3.select(this)
                                                 .style("fill", d.color)
@@ -141,6 +141,8 @@ function colorNodes(graph, percent) {
 
 function updateColorInfo(graph) {
     let colorCounts = {};
+    let nodeNumber = graph.nodes.length;
+    console.log(nodeNumber);
 
     graph.nodes.forEach(node => {
         if (colorCounts[node.color] === undefined) {
@@ -155,16 +157,22 @@ function updateColorInfo(graph) {
     colorInfo.selectAll("p").remove();
 
     let colorCount = Object.keys(colorCounts).length;
-    colorInfo.append("p").text("Numero di colori diversi: ").append("span").text(colorCount);
+    colorInfo.append("p")
+             .text("Numero di colori diversi: ")
+             .append("span")
+             .text(colorCount);
 
     for (let color in colorCounts) {
+        let nodePercentage = Math.round(colorCounts[color] / nodeNumber * 100);
         let p = colorInfo.append("p");
         p.text("Nodi colore ");
         p.append("text")
          .style("color", color)
+         .style("font-weight", "bold")
          .text(color);
         p.append("span")
-         .text(": " + colorCounts[color]);
+         .style("font-weight", "bold")
+         .text(": " + colorCounts[color] + " (" + nodePercentage + "%)");
     }
 }
 

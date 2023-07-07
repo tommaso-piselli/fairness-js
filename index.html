@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>My Graph Drawing</title>
+  <title>Fairness</title>
+  <link rel="icon" href="images\logo.png" type="image/icon type">
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.12.0/dist/tf.min.js"></script>
   <link rel="stylesheet" type="text/css" href="static/css/lightTheme.css">
@@ -17,14 +18,14 @@
       </div>
       <div id="json-display">
         <h2>Contenuto JSON</h2>
-        <textarea id='graphJson' name='graphJson' rows='10' cols='30'></textarea>
+        <textarea id='graphJson' name='graphJson' rows='10' cols='30' style="overflow: auto"></textarea>
       </div>
       <div id="file-details">
         <h2>Dettagli file</h2>
         <p id="nome-grafo">Nome del grafo: <b><span id="graph-name"></span></b> </p>
         <p id="numero-vertici">Numero dei vertici:<b> <span id="vertex-count"> </span></b></p>
         <p id="numero-archi">Numero degli archi: <b><span id="edge-count"></span></b></p>
-        <!-- Aggiungi qui altre informazioni sul file -->
+        <!-- Aggiungere qui altre informazioni sul file -->
       </div>
     </div>
     <div id="graph-container">
@@ -33,8 +34,8 @@
     <div id="tools-container">
       <div id="color-slider">
         <h2>Color Slider</h2>
-        <input type="range" id="percentSlider" min="0" max="100" value="50">
-        <span id="percentLabel"></span>
+        <input type="range" id="percentSlider" min="0" max="100" step="5" value="50">
+        <label id="percentLabel"></label>
         <button id="colorButton">Colora i nodi</button>
       </div>
       <div id="color-picker">

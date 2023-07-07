@@ -1,16 +1,16 @@
 /* Light Mode Colors */
 body {
   font-family: "Roboto", sans-serif;
-  background-color: #eff6ff;
+  background-color: white;
 }
 
 h1 {
   text-align: center;
-  color: #2e1065;
+  color: white;
+  background-color: #6200EE;
   padding: 10px;
   margin-bottom: 15px; /* Aggiunge dello spazio sotto l'h1 */
-  margin-left: 150px;
-  margin-right: 150px;
+  border-radius: 10px ;
 }
 
 #first-row {
@@ -23,18 +23,23 @@ h1 {
   height: 50vh;
   display: flex;
   margin: 10px;
-  border: 2px solid #4c1d95;
+  border: 1px transparent;
   border-radius: 12px;
-  background-color: #f5f3ff;
+  background-color: white;
   padding: 10px;
-  box-shadow: 5px 10px 18px #BDC3C7;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
 
 #graph-container {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
   width: 50vw;
+}
+
+#graph-container:hover {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
 #graph {
@@ -42,36 +47,83 @@ h1 {
   height: 90%;
 }
 
-#file-selector,  #json-display,  #file-details {
+
+#file-selector, #file-details {
+  font-size: 85%;
   width: 90%;
   margin: 0.5% auto;
   border-radius: 10px;
   padding: 10px;
+  width: 90%;
+  background: white;
+  outline: none;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+#json-display {
+  width: 90%;
+  margin: 0.5% auto;
+  border-radius: 10px;
+  padding: 10px;
+  background: white;
+  outline: none;
+}
+
+#file-selector:hover, #file-details:hover {
+  font-size: 90%;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
 #file-selector h2,  #json-display h2,  #file-details h2 {
   margin: 0 0 10px;
-  color: #2e1065;
+  text-align: center;
+  color: white;
+  background-color: #3700B3;
+  border-radius: 15px;
 }
 
 #graphJson {
-  white-space: pre-wrap; /* a capo !*/
-  background-color: #FFFFFF;
-  border: 1px solid #2e1065;
+  color: white;
+  width: 95%;
+  font-family: "Roboto", sans-serif;
+  font-size: 85%;
+  background-color: #6200EE;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   border-radius: 5px;
   padding: 10px;
 }
 
+#graphJson:hover {
+  font-size: 87%;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
 #color-slider,  #color-picker,  #color-info {
+  font-size: 85%;
   width: 90%;
   margin: 0.5% auto;
   border-radius: 10px;
   padding: 10px;
+  width: 90%;
+  background: white;
+  outline: none;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
 
 #color-slider h2,  #color-picker h2,  #color-info h2 {
   margin: 0 0 10px;
-  color: #2e1065;
+  text-align: center;
+  color: white;
+  background-color: #3700B3;
+  border-radius: 15px;
+}
+
+#color-slider:hover, #color-picker:hover, #color-info:hover{
+  font-size: 90%;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
 #second-row {
@@ -84,13 +136,18 @@ h1 {
   height: 30vh;
   display: flex;
   margin: 10px;
-  border: 2px solid #4c1d95;
+  border: 1px transparent;
   border-radius: 12px;
-  background-color:#f5f3ff;
+  background-color: white;
   padding: 10px;
-  box-shadow: 5px 10px 18px #BDC3C7;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
   justify-content: center;
   align-items: center;
+}
+
+#fairness-container:hover, #loss-container:hover, #train-container:hover {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }
 
 #loss-container {
@@ -98,7 +155,7 @@ h1 {
 }
 
 span {
-  color: #2e1065;
+  color: #3700B3;
 }
 
 
