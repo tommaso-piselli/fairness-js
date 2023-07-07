@@ -48,7 +48,7 @@ fileInput.on("change", function() {
 
 colorButton.on("click", function() {
     let percent = d3.select("#percentSlider").property("value");
-    colorNodes(graphData, percent);                                     // ToDo: Button PRESS + graphData => Working!
+    colorNodes(graphData, percent);                                     
 });
 
 function plotGraph(graph) {
