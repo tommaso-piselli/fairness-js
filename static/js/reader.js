@@ -103,11 +103,11 @@ function plotGraph(graph) {
         .attr("cy", d => yScale(d.y))
         .attr("r", 4)
         .style("fill", d => d.color) // Usa il colore del nodo
-        .on("mouseover", function() { d3.select(this)
+        .on("mouseover", function(d) { d3.select(this)
                                                 .style("fill", "#03DAC5")
                                                 .attr("r", 6); })                         // Change color on mouseover
         .on("mouseout", function(d) { d3.select(this)
-                                                .style("fill", d.color)
+                                                .style("fill", this.__data__.color)
                                                 .attr("r", 4); });                         // ToDo: quando mouseout, ricolora normale
 }
 
