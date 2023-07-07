@@ -128,11 +128,45 @@ function shuffle(array) {
 function colorNodes(graph, percent) {
     let ratio = percent / 100;
     let nodes = shuffle(graph.nodes.slice());
+    
     let redCount = Math.round(ratio * nodes.length);
     nodes.forEach((node, i) => {
         node.color = i < redCount ? "red" : "blue";
     });
+
     plotGraph(graph);
+
+    updateColorInfo(graph);
 }
+
+function updateColorInfo(graph) {
+    let colorCounts = {};
+
+    graph.nodes.forEach(node => {
+        if (colorCounts[node.color] === undefined) {
+            colorCounts[node.color] = 1;
+        } else {
+            colorCounts[node.color]++;
+        }
+    });
+
+    let colorInfo = d3.select("#color-info");
+
+    colorInfo.selectAll("p").remove();
+
+    let colorCount = Object.keys(colorCounts).length;
+    colorInfo.append("p").text("Numero di colori diversi: ").append("span").text(colorCount);
+
+    for (let color in colorCounts) {
+        let p = colorInfo.append("p");
+        p.text("Nodi colore ");
+        p.append("text")
+         .style("color", color)
+         .text(color);
+        p.append("span")
+         .text(": " + colorCounts[color]);
+    }
+}
+
 
 
