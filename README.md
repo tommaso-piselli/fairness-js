@@ -24,6 +24,7 @@ Esame di Programmazione per Internet e Web
 - aggiungere un panel per selezionare la percentuale di nodi colorati.
 - aggiungere un tool per scegliere esattamente quali nodi colorare (?)
 - aggiungere pulsante per re run dell'applicazione
+- aggiungere Tooltip
   
 ## 🐛 Known Bugs (To Fix):
 > Mouseover a vertex goes back to black instead of the new color\
