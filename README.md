@@ -26,11 +26,11 @@ Esame di Programmazione per Internet e Web
 - aggiungere pulsante per re run dell'applicazione
   
 ## 🐛 Known Bugs (To Fix):
-> - Mouseover a vertex goes back to black instead of the new color
-> - Preprocessing issues
-> - Resizing window is not consistent with graph view
+> Mouseover a vertex goes back to black instead of the new color\
+> Preprocessing issues\
+> Resizing window is not consistent with graph view\
 
 # 🔃 Changelog
-> - [07/07 - 11:36 🕐] Added color info panel.
-> - [07/07 - 11:13 🕐] Added color picking.
+> [07/07 - 11:36 🕐] Added color info panel\
+> [07/07 - 11:13 🕐] Added color picking\
 
