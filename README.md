@@ -21,14 +21,16 @@ Esame di Programmazione per Internet e Web
 - shadows: #424242 (grey)
 
 ### 🔖 ToDos: 
-- A full screen entra tutto, ma se ridimensiono la pagina mi si sforma tutto. Chiedere.
 - aggiungere un panel per selezionare la percentuale di nodi colorati.
 - aggiungere un tool per scegliere esattamente quali nodi colorare (?)
 - aggiungere pulsante per re run dell'applicazione
   
 ## 🐛 Known Bugs (To Fix):
 > Mouseover a vertex goes back to black instead of the new color
+> Preprocessing issues
+> Resizing window is not consistent with graph view
 
 # 🔃 Changelog
-> [07/07 - 11:13 🕐] Add color picking.
+> [07/07 - 11:36 🕐] Added color info panel.
+> [07/07 - 11:13 🕐] Added color picking.
 
