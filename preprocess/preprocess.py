@@ -12,8 +12,9 @@ G = nx.karate_club_graph()
 # Compute the layout
 pos = nx.spring_layout(G)
 
-# Scale the positions to range between 10 and 490 (to fit a 500x500 SVG element with a little margin)
-scaler = MinMaxScaler((10, 490))
+# Scale the positions
+# SVG is 756 x 457 --> scale from 10 to 440
+scaler = MinMaxScaler((10, 440))
 pos_array = scaler.fit_transform(list(pos.values()))
 
 # Convert the positions back to a dictionary
