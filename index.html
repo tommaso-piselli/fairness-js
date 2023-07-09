@@ -1,63 +1,82 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Fairness</title>
-  <link rel="icon" href="images\logo.png" type="image/icon type">
-  <script src="https://d3js.org/d3.v7.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.12.0/dist/tf.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="static/css/lightTheme.css">
-</head>
-<body>
-  <h1>STOCHASTIC GRADIENT DESCENT + FAIRNESS</h1>
+  <head>
+    <title>Fairness</title>
+    <link rel="icon" href="images\logo.png" type="image/icon type" />
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.12.0/dist/tf.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="static/css/lightTheme.css" />
+  </head>
+  <body>
+    <h1>GRADIENT DESCENT + FAIRNESS</h1>
 
-  <div id="first-row">
-    <div id="dataset-container">
-      <div id="file-selector">
-        <h2>File Selection</h2>
-        <label for="fileInput" id="inputLabel">Load File</label>
-        <input type="file" id="fileInput"/>
-        <button id="press-plot">Plot</button>
+    <div id="first-row">
+      <div id="dataset-container">
+        <div id="file-selector">
+          <h2>File Selection</h2>
+          <label for="fileInput" id="inputLabel">Load File</label>
+          <input type="file" id="fileInput" />
+          <button id="press-plot">Plot</button>
+        </div>
+        <div id="json-display">
+          <h2>JSON display</h2>
+          <textarea
+            id="graphJson"
+            name="graphJson"
+            rows="10"
+            cols="30"
+            style="overflow: auto"
+          ></textarea>
+        </div>
+        <div id="file-details">
+          <h2>File Details</h2>
+          <p id="nome-grafo">
+            Graph name: <b><span id="graph-name"></span></b>
+          </p>
+          <p id="numero-vertici">
+            Number of Vertices:<b> <span id="vertex-count"> </span></b>
+          </p>
+          <p id="numero-archi">
+            Number of Edges: <b><span id="edge-count"></span></b>
+          </p>
+          <!-- Aggiungere qui altre informazioni sul file -->
+        </div>
       </div>
-      <div id="json-display">
-        <h2>JSON display</h2>
-        <textarea id='graphJson' name='graphJson' rows='10' cols='30' style="overflow: auto"></textarea>
+      <div id="graph-container">
+        <svg id="graph"></svg>
       </div>
-      <div id="file-details">
-        <h2>File Details</h2>
-        <p id="nome-grafo">Graph name: <b><span id="graph-name"></span></b> </p>
-        <p id="numero-vertici">Number of Vertices:<b> <span id="vertex-count"> </span></b></p>
-        <p id="numero-archi">Number of Edges: <b><span id="edge-count"></span></b></p>
-        <!-- Aggiungere qui altre informazioni sul file -->
+      <div id="tools-container">
+        <div id="color-slider">
+          <h2>Color Slider</h2>
+          <input
+            type="range"
+            id="percentSlider"
+            min="0"
+            max="100"
+            step="5"
+            value="50"
+          />
+          <button id="colorButton">Colora i nodi</button>
+          <span id="percentSpan"
+            >Current Percent: <label id="percentLabel"></label
+          ></span>
+        </div>
+        <div id="color-picker">
+          <h2>Color Picker</h2>
+        </div>
+        <div id="color-info">
+          <h2>Color Info</h2>
+        </div>
       </div>
     </div>
-    <div id="graph-container">
-      <svg id="graph"></svg>
+
+    <div id="second-row">
+      <div id="fairness-container"></div>
+      <div id="loss-container"></div>
+      <div id="train-container"></div>
     </div>
-    <div id="tools-container">
-      <div id="color-slider">
-        <h2>Color Slider</h2>
-        <input type="range" id="percentSlider" min="0" max="100" step="5" value="50">
-        <button id="colorButton">Colora i nodi</button>
-        <span id="percentSpan">Current Percent: <label id="percentLabel"></label></span>
-      </div>
-      <div id="color-picker">
-        <h2>Color Picker </h2>
-      </div>
-      <div id="color-info">
-        <h2>Color Info </h2>
-      </div>
-    </div>
-  </div>
 
-  <div id="second-row">
-    <div id="fairness-container"></div>
-    <div id="loss-container"></div>
-    <div id="train-container"></div>
-  </div>
-
-
-  <script src="static/js/reader.js"></script>
-  <!-- <script src="train.js"></script> -->
-
-</body>
+    <script src="static/js/reader.js"></script>
+    <!-- <script src="train.js"></script> -->
+  </body>
 </html>
