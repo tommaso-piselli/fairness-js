@@ -19,20 +19,19 @@ fileInput.on("change", function () {
 
   reader.onload = function (e) {
     try {
-      let data = JSON.parse(e.target.result);
-      graphData = data;
+      graphData = JSON.parse(e.target.result);
 
       // Display JSON content
-      let jsonStr = JSON.stringify(data, null, 2);
+      let jsonStr = JSON.stringify(graphData, null, 2);
       jsonPreview.property("value", jsonStr);
 
       // Display graph details
-      d3.select("#graph-name").text(` ${data.graph.name}`);
-      d3.select("#vertex-count").text(` ${data.nodes.length}`);
-      d3.select("#edge-count").text(` ${data.links.length}`);
+      d3.select("#graph-name").text(` ${graphData.name}`);
+      d3.select("#vertex-count").text(` ${graphData.nodes.length}`);
+      d3.select("#edge-count").text(` ${graphData.edges.length}`);
 
       // Plot graph (see below)
-      plotGraph(data);
+      plotGraph(graphData);
     } catch (error) {
       console.error("Errore durante la lettura del file", error);
     }
@@ -96,7 +95,7 @@ function plotGraph(graph) {
   // Draw edges
   svg
     .selectAll("line")
-    .data(graph.links)
+    .data(graph.edges)
     .enter()
     .append("line")
     .attr("x1", (d) => xScale(graph.nodes[d.source].x))
@@ -114,10 +113,10 @@ function plotGraph(graph) {
     .attr("cx", (d) => xScale(d.x))
     .attr("cy", (d) => yScale(d.y))
     .attr("r", 4)
-    .style("fill", (d) => d.color) // Usa il colore del nodo
+    .style("fill", (d) => d.color)
     .on("mouseover", function (d) {
       d3.select(this).style("fill", "#03DAC5").attr("r", 6);
-    }) // Change color on mouseover
+    })
     .on("mouseout", function (d) {
       d3.select(this).style("fill", this.__data__.color).attr("r", 4);
     });
