@@ -135,18 +135,22 @@ function shuffle(array) {
   return array;
 }
 
+// Two colors Function
+let redCount, blueCount;
 function colorNodes(graph, percent) {
   let ratio = percent / 100;
   let nodes = shuffle(graph.nodes.slice());
 
-  let redCount = Math.round(ratio * nodes.length);
+  redCount = Math.round(ratio * nodes.length);
   nodes.forEach((node, i) => {
     node.color = i < redCount ? "red" : "blue";
   });
 
+  blueCount = nodes.length - redCount;
   plotGraph(graph);
 
   updateColorInfo(graph);
+  return redCount, blueCount;
 }
 
 function updateColorInfo(graph) {
