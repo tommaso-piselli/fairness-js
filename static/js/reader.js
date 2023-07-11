@@ -7,7 +7,7 @@ let colorButton = d3.select("#colorButton");
 let percentSlider = d3.select("#percentSlider");
 let percentLabel = d3.select("#percentLabel");
 let plotButton = d3.select("#press-plot");
-let stressValue, fairnessValue;
+let stressValue, fairnessInitialValue;
 let redNodes = [];
 let blueNodes = [];
 
@@ -36,9 +36,17 @@ fileInput.on("change", function () {
 
       // Plot graph (see below)
       plotGraph(graphData);
-      stressValue = stress(graphData).dataSync();
-      d3.select("#stress-initial-value").text(` ${stressValue[0].toFixed(2)}`);
-      fairnessValue = fairness(graphData);
+
+      // OUTPUT
+      let stressInitialValue = stress(graphData).dataSync()[0];
+      fairnessInitialValue = fairness(graphData).dataSync()[0];
+
+      d3.select("#stress-initial-value").text(
+        ` ${stressInitialValue.toFixed(2)}`
+      );
+      d3.select("#fairness-initial-value").text(
+        ` ${fairnessInitialValue.toFixed(2)}`
+      );
     } catch (error) {
       console.error("Errore durante la lettura del file", error);
     }
@@ -54,6 +62,10 @@ fileInput.on("change", function () {
 colorButton.on("click", function () {
   let percent = d3.select("#percentSlider").property("value");
   colorNodes(graphData, percent);
+  fairnessInitialValue = fairness(graphData).dataSync()[0];
+  d3.select("#fairness-initial-value").text(
+    ` ${fairnessInitialValue.toFixed(2)}`
+  );
 });
 
 plotButton.on("click", function () {
@@ -180,7 +192,7 @@ function colorDict(graphData) {
 function updateColorInfo(graph) {
   let colorCounts = {};
   let nodeNumber = graph.nodes.length;
-  console.log(nodeNumber);
+  nodeNumber;
 
   graph.nodes.forEach((node) => {
     if (colorCounts[node.color] === undefined) {
@@ -237,5 +249,48 @@ function stress(graph) {
     let stress = pdist.sub(graphDistance).square().mul(weight).sum();
 
     return stress;
+  });
+}
+
+function stressNode(graphData, node) {
+  return tf.tidy(() => {
+    let graphDistance_node = tf.tensor(graphData.shortestPath[node]);
+    let pdist_node = tf.tensor(graphData.euclideanDistance[node]);
+    let weight_node = tf.tensor(graphData.weight[node]);
+
+    let stress_node = pdist_node
+      .sub(graphDistance_node)
+      .square()
+      .mul(weight_node)
+      .sum();
+
+    return stress_node;
+  });
+}
+
+function fairness(graphData) {
+  return tf.tidy(() => {
+    let nodes = graphData.nodes;
+    let nodeStress;
+    let redStress = 0;
+    let blueStress = 0;
+    let redCount = 0;
+    let blueCount = 0;
+    for (let index in nodes) {
+      nodeStress = stressNode(graphData, index);
+      if (nodes[index].color === "red") {
+        redStress += nodeStress.dataSync()[0];
+        redCount++;
+      } else {
+        blueStress += nodeStress.dataSync()[0];
+        blueCount++;
+      }
+    }
+
+    let fairness = redStress / redCount - blueStress / blueCount;
+    fairness = tf.scalar(fairness);
+    let fairnessSquared = fairness.square();
+
+    return fairness;
   });
 }

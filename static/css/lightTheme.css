@@ -1,4 +1,8 @@
 /* Light Mode Colors */
+html {
+  font-family: "Roboto", sans-serif;
+}
+
 body {
   font-family: "Roboto", sans-serif;
   background-color: white;
