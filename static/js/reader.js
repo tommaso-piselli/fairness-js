@@ -7,7 +7,10 @@ let colorButton = d3.select("#colorButton");
 let percentSlider = d3.select("#percentSlider");
 let percentLabel = d3.select("#percentLabel");
 let plotButton = d3.select("#press-plot");
-let stressInitial = d3.select("#stress-initial");
+let stressValue, fairnessValue;
+let redNodes = [];
+let blueNodes = [];
+
 percentSlider.on("input", function () {
   percentLabel.text(this.value + "%");
 });
@@ -33,9 +36,9 @@ fileInput.on("change", function () {
 
       // Plot graph (see below)
       plotGraph(graphData);
-
-      let stressValue = stress(graphData).dataSync();
-      console.log("stress:" + stressValue);
+      stressValue = stress(graphData).dataSync();
+      d3.select("#stress-initial-value").text(` ${stressValue[0].toFixed(2)}`);
+      fairnessValue = fairness(graphData);
     } catch (error) {
       console.error("Errore durante la lettura del file", error);
     }
@@ -152,9 +155,26 @@ function colorNodes(graph, percent) {
 
   blueCount = nodes.length - redCount;
   plotGraph(graph);
+  colorDict(graph);
 
   updateColorInfo(graph);
   return redCount, blueCount;
+}
+
+function colorDict(graphData) {
+  for (let i = 0; i < graphData.nodes.length; i++) {
+    let node = graphData.nodes[i];
+    node.weight = graphData.weight[i];
+    node.shortestPath = graphData.shortestPath[i];
+    node.euclideanDistance = graphData.euclideanDistance[i];
+    node.color = graphData.nodes[i].color;
+
+    if (node.color === "red") {
+      redNodes.push(node);
+    } else {
+      blueNodes.push(node);
+    }
+  }
 }
 
 function updateColorInfo(graph) {
