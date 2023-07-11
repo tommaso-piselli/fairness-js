@@ -23,8 +23,8 @@ def graphToJson(G, name):
     pos = nx.spring_layout(G)
 
     # Scale the positions
-    # SVG is 756 x 457 --> scale from 10 to 440
-    scaler = MinMaxScaler((10, 440))
+    # SVG is 500x500 --> scale from 10 to 490
+    scaler = MinMaxScaler((10, 490))
     pos_array = scaler.fit_transform(list(pos.values()))
 
     scaled_pos = {n: pos_array[i].tolist() for i, n in enumerate(pos.keys())}
@@ -38,6 +38,14 @@ def graphToJson(G, name):
     n = len(G.nodes)
     eye = torch.eye(n)
     W = 1/(D**2+eye)
+
+    euclideanDistance = []
+    for node1 in G.nodes:
+        row = []
+        for node2 in G.nodes:
+            dist = np.linalg.norm(pos[node1] - pos[node2])
+            row.append(dist)
+        euclideanDistance.append(row)
 
     graph = {
         'name': name,
@@ -59,6 +67,7 @@ def graphToJson(G, name):
         ],
         'weight': W.numpy().tolist(),
         'shortestPath': D.numpy().tolist(),
+        'euclideanDistance': euclideanDistance,
     }
 
     # Write the graph data to a JSON file
@@ -89,8 +98,8 @@ def txtToJson(name):
     pos = nx.spring_layout(G)
 
     # Scale the positions
-    # SVG is 756 x 457 --> scale from 10 to 440
-    scaler = MinMaxScaler((10, 440))
+    # SVG is 500x500 --> scale from 10 to 490
+    scaler = MinMaxScaler((10, 490))
     pos_array = scaler.fit_transform(list(pos.values()))
 
     scaled_pos = {n: pos_array[i].tolist() for i, n in enumerate(pos.keys())}
@@ -102,6 +111,13 @@ def txtToJson(name):
     n = len(G.nodes)
     eye = torch.eye(n)
     W = 1/(D**2+eye)
+    euclideanDistance = []
+    for node1 in G.nodes:
+        row = []
+        for node2 in G.nodes:
+            dist = np.linalg.norm(pos[node1] - pos[node2])
+            row.append(dist)
+        euclideanDistance.append(row)
 
     graph_dict = {
         'name': name,
@@ -123,6 +139,7 @@ def txtToJson(name):
         ],
         'weight': W.numpy().tolist(),
         'shortestPath': D.numpy().tolist(),
+        'euclideanDistance': euclideanDistance,
     }
 
     with open(f'../data/JSON/{name}.json', 'w') as f:

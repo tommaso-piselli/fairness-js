@@ -26,10 +26,11 @@ Esame di Programmazione per Internet e Web
 
 ### 🔖 ToDos:
 
-- aggiungere un panel per selezionare la percentuale di nodi colorati.
+- ~aggiungere un panel per selezionare la percentuale di nodi colorati.~
 - aggiungere un tool per scegliere esattamente quali nodi colorare (?)
 - aggiungere pulsante per re run dell'applicazione
 - aggiungere Tooltip
+- aggiungere initial and final stress
 
 ## 🐛 Known Bugs (To Fix):
 
@@ -39,6 +40,7 @@ Esame di Programmazione per Internet e Web
 
 # 🔃 Changelog
 
+> [11/07 - 12:15 🕐] Add Preprocess for more graphs\
 > [07/07 - 18:04 🕐] Fix Mouseover bug and graph out of window\
 > [07/07 - 11:36 🕐] Added color info panel\
 > [07/07 - 11:13 🕐] Added color picking

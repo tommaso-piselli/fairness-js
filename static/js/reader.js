@@ -7,6 +7,7 @@ let colorButton = d3.select("#colorButton");
 let percentSlider = d3.select("#percentSlider");
 let percentLabel = d3.select("#percentLabel");
 let plotButton = d3.select("#press-plot");
+let stressInitial = d3.select("#stress-initial");
 percentSlider.on("input", function () {
   percentLabel.text(this.value + "%");
 });
@@ -32,6 +33,9 @@ fileInput.on("change", function () {
 
       // Plot graph (see below)
       plotGraph(graphData);
+
+      let stressValue = stress(graphData).dataSync();
+      console.log("stress:" + stressValue);
     } catch (error) {
       console.error("Errore durante la lettura del file", error);
     }
@@ -189,4 +193,29 @@ function updateColorInfo(graph) {
       .style("font-weight", "bold")
       .text(": " + colorCounts[color] + " (" + nodePercentage + "%)");
   }
+}
+
+function pairwiseDistance(x) {
+  return tf.tidy(() => {
+    let xNormSquared = x.pow(2).sum(1).reshape([-1, 1]);
+    let pairwiseDotProduct = x.matMul(x.transpose());
+    let pdistSquared = pairwiseDotProduct
+      .mul(-2)
+      .add(xNormSquared)
+      .add(xNormSquared.transpose());
+    let pdistSquaredClipped = pdistSquared.clipByValue(0, Infinity).sqrt();
+    return pdistSquaredClipped;
+  });
+}
+
+function stress(graph) {
+  return tf.tidy(() => {
+    let graphDistance = tf.tensor(graph.shortestPath);
+    let pdist = tf.tensor(graph.euclideanDistance);
+    let weight = tf.tensor(graph.weight);
+
+    let stress = pdist.sub(graphDistance).square().mul(weight).sum();
+
+    return stress;
+  });
 }
