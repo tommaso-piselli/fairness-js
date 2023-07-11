@@ -2,8 +2,7 @@ import json
 import torch
 import networkx as nx
 from sklearn.preprocessing import MinMaxScaler
-import random
-import pandas as pd
+import numpy as np
 
 
 def dict2tensor(d, fill=None):
@@ -28,15 +27,11 @@ def graphToJson(G, name):
     scaler = MinMaxScaler((10, 440))
     pos_array = scaler.fit_transform(list(pos.values()))
 
-    # Convert the positions back to a dictionary
     scaled_pos = {n: pos_array[i].tolist() for i, n in enumerate(pos.keys())}
 
-    # Assign the positions and colors to the nodes in the graph
     for node, data in G.nodes(data=True):
         data['x'], data['y'] = scaled_pos[node]
-    #     data['color'] = 'blue' if random.random() < 0.8 else 'red'  # assign color with 80% chance for blue
 
-    # Convert the graph to a dictionary
     graph_dict = nx.node_link_data(G)
 
     D, k2i = dict2tensor(dict(nx.all_pairs_shortest_path_length(G)))
@@ -63,12 +58,75 @@ def graphToJson(G, name):
             for e1, e2 in G.edges
         ],
         'weight': W.numpy().tolist(),
-        'graphDistance': D.numpy().tolist(),
+        'shortestPath': D.numpy().tolist(),
     }
 
     # Write the graph data to a JSON file
-    with open(f'../data/{name}.json', 'w') as f:
+    with open(f'../data/JSON/{name}.json', 'w') as f:
         json.dump(graph, f)
+
+
+def txtToJson(name):
+    with open(f'../data/txt/{name}.txt', 'r') as file:
+        vertices = set()
+        edges = []
+
+        for line in file:
+            vertices.update(map(int, line.split()))
+            edges.append(tuple(map(int, line.split())))
+
+    # Crea una matrice di adiacenza vuota di dimensione len(vertices) x len(vertices)
+    adj_matrix = np.zeros((len(vertices), len(vertices)))
+
+    # Popola la matrice di adiacenza
+    for edge in edges:
+        adj_matrix[edge[0]-1][edge[1]-1] = 1
+        adj_matrix[edge[1]-1][edge[0]-1] = 1
+
+    # Crea il grafo utilizzando la matrice di adiacenza
+    G = nx.from_numpy_matrix(adj_matrix)
+
+    pos = nx.spring_layout(G)
+
+    # Scale the positions
+    # SVG is 756 x 457 --> scale from 10 to 440
+    scaler = MinMaxScaler((10, 440))
+    pos_array = scaler.fit_transform(list(pos.values()))
+
+    scaled_pos = {n: pos_array[i].tolist() for i, n in enumerate(pos.keys())}
+
+    for node, data in G.nodes(data=True):
+        data['x'], data['y'] = scaled_pos[node]
+
+    D, k2i = dict2tensor(dict(nx.all_pairs_shortest_path_length(G)))
+    n = len(G.nodes)
+    eye = torch.eye(n)
+    W = 1/(D**2+eye)
+
+    graph_dict = {
+        'name': name,
+        'nodes': [
+            {
+                'index': node,
+                'id': str(node),
+                'x': data['x'],
+                'y': data['y']
+            }
+            for node, data in G.nodes(data=True)
+        ],
+        'edges': [
+            {
+                'source': str(e1),
+                'target': str(e2)
+            }
+            for e1, e2 in G.edges
+        ],
+        'weight': W.numpy().tolist(),
+        'shortestPath': D.numpy().tolist(),
+    }
+
+    with open(f'../data/JSON/{name}.json', 'w') as f:
+        json.dump(graph_dict, f)
 
 
 # Graphs
@@ -90,6 +148,16 @@ Graphs = [
     # ('cube', nx.hypercube_graph(3)),
 ]
 
+matrix = [
+    'lesmis',
+    'football',
+    'impcol_d',
+]
+
 for name, G in Graphs:
     print(name)
     graphToJson(G, name)
+
+for name in matrix:
+    print(name)
+    txtToJson(name)
