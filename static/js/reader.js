@@ -38,7 +38,7 @@ fileInput.on("change", function () {
       plotGraph(graphData);
 
       // OUTPUT
-      let stressInitialValue = stress(graphData).dataSync()[0];
+      let stressInitialValue = stress(graphData)[1];
       fairnessInitialValue = fairness(graphData).dataSync()[0];
 
       d3.select("#stress-initial-value").text(
@@ -244,11 +244,29 @@ function stress(graph) {
   return tf.tidy(() => {
     let graphDistance = tf.tensor(graph.shortestPath);
     let pdist = tf.tensor(graph.euclideanDistance);
+    let n = pdist.shape[0];
+    let mask = tf.scalar(1.0).sub(tf.eye(n));
     let weight = tf.tensor(graph.weight);
 
-    let stress = pdist.sub(graphDistance).square().mul(weight).sum();
+    let numerator = graphDistance.mul(pdist).mul(weight).mul(mask).sum();
+    let denominator = graphDistance.square().mul(weight).mul(mask).sum();
+    let optimalScaling = numerator.div(denominator);
 
-    return stress;
+    let stress = pdist.sub(graphDistance).square().mul(weight).sum();
+    let loss = stress.div(2);
+
+    // METRIC
+    let pdist_normalized = pdist.div(optimalScaling);
+    let metric = pdist_normalized
+      .sub(graphDistance)
+      .square()
+      .mul(weight)
+      .sum()
+      .div(2);
+    metric = metric.dataSync()[0];
+
+    //return [loss, stress.dataSync()[0], pdist];
+    return [loss, metric, pdist_normalized.arraySync()];
   });
 }
 
