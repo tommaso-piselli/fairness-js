@@ -30,7 +30,8 @@ Esame di Programmazione per Internet e Web
 - aggiungere un tool per scegliere esattamente quali nodi colorare (?)
 - aggiungere pulsante per re run dell'applicazione
 - aggiungere Tooltip
-- aggiungere initial and final stress
+- aggiungere ~initial and~ final stress and fairness
+- Implementare train con momentum gradient descent
 
 ## 🐛 Known Bugs (To Fix):
 
@@ -40,7 +41,7 @@ Esame di Programmazione per Internet e Web
 
 # 🔃 Changelog
 
-> [13/07 - 18:20 🕐] Add Random graphs generator, checked whether stress and fairness work properly\
+> [13/07 - 18:20 🕐] Add Random graphs generator, checked ✔️ whether stress and fairness work properly\
 > [11/07 - 12:15 🕐] Add Preprocess for more graphs\
 > [07/07 - 18:04 🕐] Fix Mouseover bug and graph out of window\
 > [07/07 - 11:36 🕐] Added color info panel\
