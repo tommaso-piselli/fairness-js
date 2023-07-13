@@ -49,8 +49,8 @@ h1 {
 }
 
 #graph {
-  width: 90%;
-  height: 100%;
+  width: 450px;
+  height: 450px;
 }
 
 #file-selector,
@@ -185,16 +185,47 @@ input[type="file"] {
   border-radius: 12px;
   background-color: white;
   padding: 10px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
-#fairness-container:hover,
-#loss-container:hover,
-#train-container:hover {
+.values {
+  font-size: 85%;
+  width: 90%;
+  margin: 0.5% auto;
+  border-radius: 10px;
+  padding: 10px;
+  width: 90%;
+  background: white;
+  outline: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.values:hover {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  font-size: 90%;
+}
+
+.values h2 {
+  margin: 0 0 10px;
+  text-align: center;
+  color: white;
+  padding: 5px;
+  background-color: #3700b3;
+  border-radius: 15px;
+}
+
+#fairness-initial-value,
+#stress-initial-value {
+  margin: 0 0 10px;
+  text-align: center;
+  color: #6200ee;
+  padding: 5px;
+  background-color: #03dac5;
+  border-radius: 15px;
+  outline: auto;
 }
 
 #loss-container {

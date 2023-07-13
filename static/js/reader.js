@@ -41,12 +41,12 @@ fileInput.on("change", function () {
       let stressInitialValue = stress(graphData)[1];
       fairnessInitialValue = fairness(graphData).dataSync()[0];
 
-      d3.select("#stress-initial-value").text(
-        ` ${stressInitialValue.toFixed(2)}`
-      );
-      d3.select("#fairness-initial-value").text(
-        ` ${fairnessInitialValue.toFixed(2)}`
-      );
+      d3.select("#stress-initial-value")
+        .text(` ${stressInitialValue.toFixed(2)}`)
+        .style("font-weight", "bold");
+      d3.select("#fairness-initial-value")
+        .text(` ${fairnessInitialValue.toFixed(2)}`)
+        .style("font-weight", "bold");
     } catch (error) {
       console.error("Errore durante la lettura del file", error);
     }
@@ -63,9 +63,9 @@ colorButton.on("click", function () {
   let percent = d3.select("#percentSlider").property("value");
   colorNodes(graphData, percent);
   fairnessInitialValue = fairness(graphData).dataSync()[0];
-  d3.select("#fairness-initial-value").text(
-    ` ${fairnessInitialValue.toFixed(2)}`
-  );
+  d3.select("#fairness-initial-value")
+    .text(` ${fairnessInitialValue.toFixed(2)}`)
+    .style("font-weight", "bold");
 });
 
 plotButton.on("click", function () {
@@ -209,18 +209,19 @@ function updateColorInfo(graph) {
   let colorCount = Object.keys(colorCounts).length;
   colorInfo
     .append("p")
-    .text("Numero di colori diversi: ")
+    .text("N° of different colors: ")
     .append("span")
     .text(colorCount);
 
   for (let color in colorCounts) {
     let nodePercentage = Math.round((colorCounts[color] / nodeNumber) * 100);
     let p = colorInfo.append("p");
-    p.text("Nodi colore ");
+    p.text("");
     p.append("text")
       .style("color", color)
       .style("font-weight", "bold")
       .text(color);
+    p.append("text").text(" nodes");
     p.append("span")
       .style("font-weight", "bold")
       .text(": " + colorCounts[color] + " (" + nodePercentage + "%)");
@@ -280,7 +281,8 @@ function stressNode(graphData, node) {
       .sub(graphDistance_node)
       .square()
       .mul(weight_node)
-      .sum();
+      .sum()
+      .div(2);
 
     return stress_node;
   });
