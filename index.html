@@ -5,6 +5,7 @@
     <link rel="icon" href="images\logo.png" type="image/icon type" />
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.12.0/dist/tf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/6.6.4/math.js"></script>
     <link rel="stylesheet" type="text/css" href="static/css/lightTheme.css" />
   </head>
   <body>
@@ -61,9 +62,9 @@
             >Current Percent: <label id="percentLabel"></label
           ></span>
         </div>
-        <div id="color-picker">
+        <!--         <div id="color-picker">
           <h2>Color Picker</h2>
-        </div>
+        </div> -->
         <div id="color-info">
           <h2>Color Info</h2>
         </div>
@@ -79,20 +80,32 @@
           <div id="fairness-initial-value"></div>
         </div>
       </div>
-      <div id="train-container">
-        <div class="training">
-          <button id="trainButton">TRAIN</button>
-          <div id="learning-rate">
-            <h2>Learning Rate Value</h2>
-            <div id="learning-rate-value"></div>
+      <div class="center">
+        <div id="train-container">
+          <div class="training">
+            <button id="trainButton">TRAIN</button>
+            <div id="learning-rate">
+              <h2>Learning Rate Value</h2>
+              <div id="learning-rate-value"></div>
+            </div>
+            <div id="momentum">
+              <h2>Momentum Value</h2>
+              <div id="momentum-value"></div>
+            </div>
+            <div id="loss">
+              <h2>Loss Value</h2>
+              <div id="loss-value"></div>
+            </div>
           </div>
-          <div id="momentum">
-            <h2>Momentum Value</h2>
-            <div id="momentum-value"></div>
-          </div>
-          <div id="loss">
-            <h2>Loss Value</h2>
-            <div id="loss-value"></div>
+          <div class="coeff">
+            <div id="stress-coeff">
+              <h2>Stress Coeff</h2>
+              <div id="stress-coeff-value"></div>
+            </div>
+            <div id="fair-coeff">
+              <h2>Fairness Coeff</h2>
+              <div id="fair-coeff-value"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -104,6 +117,10 @@
           <div id="fairness-final-value"></div>
         </div>
       </div>
+    </div>
+
+    <div id="lossSvg">
+      <svg id="svgLoss" width="500" height="500"></svg>
     </div>
 
     <script src="static/js/reader.js"></script>

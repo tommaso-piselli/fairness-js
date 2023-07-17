@@ -40,6 +40,7 @@ Esame di Programmazione per Internet e Web
 > ~Mouseover a vertex goes back to black instead of the new color~\
 > ~Preprocessing issues~\
 > Resizing window is not consistent with graph view --> bootstrap or tailwind
+> Bigger graphs => loss goes to zero very fast
 
 # 🔃 Changelog
 

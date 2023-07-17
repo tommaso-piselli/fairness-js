@@ -15,10 +15,39 @@ function stress(graph, x) {
   return tf.tidy(() => {
     let graphDistance = tf.tensor(graph.shortestPath);
     let pdist = pairwiseDistance(x);
-    //console.log(pdist.print());
+    let weight = tf.tensor(graph.weight);
     let n = pdist.shape[0];
     let mask = tf.scalar(1.0).sub(tf.eye(n));
-    let weight = tf.tensor(graph.weight);
+
+    let numerator = graphDistance.mul(pdist).mul(weight).mul(mask).sum();
+    let denominator = graphDistance.square().mul(weight).mul(mask).sum();
+    let optimalScaling = numerator.div(denominator);
+
+    let stress = pdist.sub(graphDistance).square().mul(weight).sum();
+    let loss = stress.div(2);
+
+    // METRIC
+    let pdist_normalized = pdist.div(optimalScaling);
+    let metric = pdist_normalized
+      .sub(graphDistance)
+      .square()
+      .mul(weight)
+      .sum()
+      .div(2);
+    metric = metric.dataSync()[0];
+
+    //return [loss, stress.dataSync()[0], pdist];
+    return [loss, metric, pdist_normalized.arraySync()];
+  });
+}
+
+function stress(graph_distance, graph_weight, x) {
+  return tf.tidy(() => {
+    let graphDistance = tf.tensor(graph_distance);
+    let pdist = pairwiseDistance(x);
+    let weight = tf.tensor(graph_weight);
+    let n = pdist.shape[0];
+    let mask = tf.scalar(1.0).sub(tf.eye(n));
 
     let numerator = graphDistance.mul(pdist).mul(weight).mul(mask).sum();
     let denominator = graphDistance.square().mul(weight).mul(mask).sum();
@@ -125,5 +154,105 @@ function fairness(graphData, x) {
     metric = metric.dataSync()[0];
 
     return [loss, metric];
+  });
+}
+
+function center_loss(x, center) {
+  return tf.tidy(() => {
+    center = tf.tensor(center);
+    return x.mean(0).sub(center).div(center).pow(2).sum();
+  });
+}
+
+function trainOneIter(dataObj, optimizer, computeMetric = true) {
+  let x = dataObj.x;
+  // let x_array = x.arraySync();
+  let graphDistance = dataObj.graphDistance;
+  let stressWeight = dataObj.stressWeight;
+  let graph = dataObj.graph;
+  if (!graph.hasOwnProperty("width")) {
+    graph.width = 1e6;
+  }
+  if (!graph.hasOwnProperty("height")) {
+    graph.height = 1e6;
+  }
+  let center = [graph.width / 2 || 0, graph.height / 2 || 0];
+  //console.log("Center: " + center);
+  let coef = dataObj.coef;
+  let metrics = {};
+  let loss = optimizer.minimize(
+    () => {
+      let pdist = pairwiseDistance(x);
+      let loss = tf.tidy(() => {
+        let vmin = [0, 0];
+        let vmax = [dataObj.graph.width, dataObj.graph.height];
+        let l = center_loss(x, center);
+        //console.log("Graph Center: " + l);
+        // .add(boundary_loss(x, vmin, vmax));
+        // let l = boundary_loss(x, vmin, vmax);
+        // let l = tf.scalar(0);
+
+        if (coef.stress > 0) {
+          let [st, m_st, pdist_normalized] = stress(
+            graphDistance,
+            stressWeight,
+            x
+          );
+          metrics.stress = m_st;
+          //console.log("(1)m_st: " + m_st);
+          metrics.pdist = pdist_normalized;
+          l = l.add(st.mul(coef.stress));
+          //console.log("(1)l: " + l);
+        } else if (computeMetric) {
+          let [st, m_st, pdist_normalized] = stress(
+            graphDistance,
+            stressWeight,
+            x
+          );
+          metrics.stress = m_st;
+          //console.log("(2)m_st: " + m_st);
+          metrics.pdist = pdist_normalized;
+        }
+
+        if (coef.fairness > 0) {
+          let [fair, m_fair] = fairness(graph, x);
+          metrics.fairness = m_fair;
+          //console.log();
+          l = l.add(fair.mul(coef.fairness));
+          //console.log("(2)l: " + l);
+        }
+        return l;
+      });
+      return loss;
+    },
+    true,
+    [x]
+  );
+  return { loss, metrics };
+}
+
+function train(dataObj, remainingIter, optimizer, callback) {
+  if (remainingIter <= 0) {
+    console.log(
+      "Max iteration reached, please double click the play button to restart"
+    );
+  } else {
+    let computeMetric = true; //remainingIter % 50 == 0;
+    let { loss, metrics } = trainOneIter(dataObj, optimizer, computeMetric);
+    if (callback) {
+      callback({
+        remainingIter,
+        loss: loss.dataSync()[0],
+        metrics,
+      });
+    }
+    train(dataObj, remainingIter - 1, optimizer, callback);
+  }
+}
+
+function updateNodePosition(graph, x_arr) {
+  graph.nodes.forEach((node, i) => {
+    node.x = x_arr[i][0];
+    node.y = x_arr[i][1];
   });
 }

@@ -7,11 +7,45 @@ let colorButton = d3.select("#colorButton");
 let percentSlider = d3.select("#percentSlider");
 let percentLabel = d3.select("#percentLabel");
 let plotButton = d3.select("#press-plot");
+let trainButton = d3.select("#trainButton");
+let svgLoss;
+
 let stressInitialValue, fairnessInitialValue;
+let stressFinalValue, fairnessFinalValue;
 let redNodes = [];
 let blueNodes = [];
-
+let dataObj;
 let x;
+
+class MinMaxScaler {
+  constructor(range) {
+    this.range = range;
+  }
+
+  fitTransform(arr) {
+    let transposed = this.transpose(arr);
+    let scaled = transposed.map((column) => this.scaleColumn(column));
+    return this.transpose(scaled);
+  }
+
+  scaleColumn(column) {
+    let min = Math.min(...column);
+    let max = Math.max(...column);
+    return column.map((x) => this.scale(x, min, max));
+  }
+
+  scale(x, min, max) {
+    return (
+      ((x - min) / (max - min)) * (this.range[1] - this.range[0]) +
+      this.range[0]
+    );
+  }
+
+  transpose(arr) {
+    return arr[0].map((_, i) => arr.map((row) => row[i]));
+  }
+}
+let scaler = new MinMaxScaler([10, 440]);
 
 percentSlider.on("input", function () {
   percentLabel.text(this.value + "%");
@@ -38,13 +72,43 @@ fileInput.on("change", function () {
 
       // New Coords Vect
       let coords = graphData.nodes.map((node) => [node.x, node.y]);
-      x = tf.tensor2d(coords);
+      x = tf.variable(tf.tensor2d(coords));
 
       // Plot graph (see below)
       plotGraph(graphData);
 
+      // Init
+      let sampleSize = 5;
+      let maxPlotIter = 50;
+      let niter = 1000;
+      let maxIter = niter;
+      let maxMetricSize = 10;
+
+      let lr = 0.01;
+      let momentum = 0.5;
+      let optimizer = tf.train.momentum(lr, momentum, false);
+      let losses = [];
+      let metrics = [];
+
+      // TODO: Aggiornare coefficienti
+      let coef = {
+        stress: 0.8,
+        fairness: 0.2,
+      };
+      let graphDistance = graphData.shortestPath;
+      let stressWeight = graphData.weight;
+      let graph = graphData;
+
+      dataObj = {
+        x,
+        graphDistance,
+        stressWeight,
+        graph,
+        coef,
+      };
+
       // OUTPUT
-      stressInitialValue = stress(graphData, x)[1];
+      stressInitialValue = stress(graphDistance, stressWeight, x)[1];
       fairnessInitialValue = fairness(graphData, x)[1];
 
       d3.select("#stress-initial-value")
@@ -53,6 +117,72 @@ fileInput.on("change", function () {
       d3.select("#fairness-initial-value")
         .text(` ${fairnessInitialValue.toFixed(2)}`)
         .style("font-weight", "bold");
+      d3.select("#stress-coeff-value")
+        .text(` ${coef.stress}`)
+        .style("font-weight", "bold");
+      d3.select("#fair-coeff-value")
+        .text(` ${coef.fairness}`)
+        .style("font-weight", "bold");
+      d3.select("#learning-rate-value")
+        .text(` ${lr}`)
+        .style("font-weight", "bold");
+      d3.select("#momentum-value")
+        .text(` ${momentum}`)
+        .style("font-weight", "bold");
+
+      // Train
+      trainButton.on("click", function () {
+        //console.log(dataObj.x.print());
+        /*     let result = trainOneIter(dataObj, optimizer, true);
+        console.log(dataObj.x.print()); */
+
+        train(dataObj, niter, optimizer, (record) => {
+          metrics.push(record.metrics);
+          losses.push(record.loss);
+          if (losses.length >= 10) {
+            let n = losses.length;
+            let firstSlice = losses.slice(
+              Math.floor(n / 2),
+              Math.floor((n / 4) * 3)
+            );
+            let secondSlice = losses.slice(Math.floor((n / 4) * 3), n);
+            let avgLoss0 = math.mean(firstSlice);
+            let avgLoss1 = math.mean(secondSlice);
+            if (avgLoss1 > avgLoss0) {
+              lr = Math.max(lr * 0.999, 0.001);
+            }
+          }
+          niter -= 1;
+          console.log("N°iter:" + niter);
+          if (niter % 2 == 0) {
+            //update graph display every 2 iterations
+            //console.log("Inside IF");
+            let x_arr = scaler.fitTransform(x.arraySync());
+            //console.log(x_arr);
+
+            updateNodePosition(dataObj.graph, x_arr);
+            plotGraph(dataObj.graph);
+            // OUTPUT
+            stressFinalValue = stress(graphDistance, stressWeight, x)[1];
+            fairnessFinalValue = fairness(graphData, x)[1];
+
+            //console.log("Loss: " + losses);
+
+            d3.select("#stress-final-value")
+              .text(` ${stressFinalValue.toFixed(2)}`)
+              .style("font-weight", "bold");
+            d3.select("#fairness-final-value")
+              .text(` ${fairnessFinalValue.toFixed(2)}`)
+              .style("font-weight", "bold");
+            d3.select("#loss-value")
+              .text(` ${record.loss.toFixed(2)}`)
+              .style("font-weight", "bold");
+          }
+        });
+
+        // Plot Loss
+        plotLoss(svgLoss, maxIter, losses);
+      });
     } catch (error) {
       console.error("Errore durante la lettura del file", error);
     }
