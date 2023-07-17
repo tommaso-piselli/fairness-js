@@ -90,7 +90,7 @@ fileInput.on("change", function () {
       let losses = [];
       let metrics = [];
 
-      // TODO: Aggiornare coefficienti
+      // TODO: Aggiornare coefficienti con slider
       let coef = {
         stress: 0.8,
         fairness: 0.2,
@@ -157,16 +157,16 @@ fileInput.on("change", function () {
           if (niter % 2 == 0) {
             //update graph display every 2 iterations
             //console.log("Inside IF");
-            let x_arr = scaler.fitTransform(x.arraySync());
+            //let x_arr = scaler.fitTransform(x.arraySync());
             //console.log(x_arr);
-
+            let x_arr = postprocess(x.arraySync(), graph);
             updateNodePosition(dataObj.graph, x_arr);
             plotGraph(dataObj.graph);
             // OUTPUT
             stressFinalValue = stress(graphDistance, stressWeight, x)[1];
             fairnessFinalValue = fairness(graphData, x)[1];
 
-            //console.log("Loss: " + losses);
+            console.log("Loss: " + record.loss);
 
             d3.select("#stress-final-value")
               .text(` ${stressFinalValue.toFixed(2)}`)

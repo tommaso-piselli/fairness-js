@@ -1,3 +1,23 @@
+function postprocess(x, graph) {
+  graph.scalingFactor = 1;
+  graph.snapToInt = false;
+
+  graph.xmin = d3.min(x, (d) => d[0]);
+  graph.ymin = d3.min(x, (d) => d[1]);
+
+  let y = x.map((d) => {
+    d = d.slice();
+    d[0] = (d[0] - graph.xmin) * graph.scalingFactor;
+    d[1] = (d[1] - graph.ymin) * graph.scalingFactor;
+    if (graph.snapToInt) {
+      d[0] = Math.round(d[0]);
+      d[1] = Math.round(d[1]);
+    }
+    return d;
+  });
+  return y;
+}
+
 function pairwiseDistance(x) {
   return tf.tidy(() => {
     let xNormSquared = x.pow(2).sum(1).reshape([-1, 1]);
@@ -15,6 +35,7 @@ function stress(graph, x) {
   return tf.tidy(() => {
     let graphDistance = tf.tensor(graph.shortestPath);
     let pdist = pairwiseDistance(x);
+    console.log("pdist: " + pdist.print());
     let weight = tf.tensor(graph.weight);
     let n = pdist.shape[0];
     let mask = tf.scalar(1.0).sub(tf.eye(n));
@@ -44,7 +65,9 @@ function stress(graph, x) {
 function stress(graph_distance, graph_weight, x) {
   return tf.tidy(() => {
     let graphDistance = tf.tensor(graph_distance);
+    //console.log("x: " + x.print());
     let pdist = pairwiseDistance(x);
+    //console.log("pdist: " + pdist.print());
     let weight = tf.tensor(graph_weight);
     let n = pdist.shape[0];
     let mask = tf.scalar(1.0).sub(tf.eye(n));
@@ -188,9 +211,6 @@ function trainOneIter(dataObj, optimizer, computeMetric = true) {
         let vmax = [dataObj.graph.width, dataObj.graph.height];
         let l = center_loss(x, center);
         //console.log("Graph Center: " + l);
-        // .add(boundary_loss(x, vmin, vmax));
-        // let l = boundary_loss(x, vmin, vmax);
-        // let l = tf.scalar(0);
 
         if (coef.stress > 0) {
           let [st, m_st, pdist_normalized] = stress(
@@ -199,7 +219,7 @@ function trainOneIter(dataObj, optimizer, computeMetric = true) {
             x
           );
           metrics.stress = m_st;
-          //console.log("(1)m_st: " + m_st);
+          //console.log("(1.a)m_st: " + m_st);
           metrics.pdist = pdist_normalized;
           l = l.add(st.mul(coef.stress));
           //console.log("(1)l: " + l);
@@ -210,14 +230,13 @@ function trainOneIter(dataObj, optimizer, computeMetric = true) {
             x
           );
           metrics.stress = m_st;
-          //console.log("(2)m_st: " + m_st);
+          //console.log("(1.b)m_st: " + m_st);
           metrics.pdist = pdist_normalized;
         }
 
         if (coef.fairness > 0) {
           let [fair, m_fair] = fairness(graph, x);
           metrics.fairness = m_fair;
-          //console.log();
           l = l.add(fair.mul(coef.fairness));
           //console.log("(2)l: " + l);
         }
