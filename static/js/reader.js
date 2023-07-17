@@ -45,7 +45,7 @@ fileInput.on("change", function () {
 
       // OUTPUT
       stressInitialValue = stress(graphData, x)[1];
-      fairnessInitialValue = fairness(graphData, x).dataSync()[0];
+      fairnessInitialValue = fairness(graphData, x)[1];
 
       d3.select("#stress-initial-value")
         .text(` ${stressInitialValue.toFixed(2)}`)
@@ -68,7 +68,7 @@ fileInput.on("change", function () {
 colorButton.on("click", function () {
   let percent = d3.select("#percentSlider").property("value");
   colorNodes(graphData, percent);
-  fairnessInitialValue = fairness(graphData, x).dataSync()[0];
+  fairnessInitialValue = fairness(graphData, x)[1];
   d3.select("#fairness-initial-value")
     .text(` ${fairnessInitialValue.toFixed(2)}`)
     .style("font-weight", "bold");

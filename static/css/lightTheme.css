@@ -73,7 +73,8 @@ input[type="file"] {
 
 #inputLabel,
 #press-plot,
-#colorButton {
+#colorButton,
+#trainButton {
   border-radius: 5px;
   font-weight: bold;
   color: #6200ee;
@@ -91,7 +92,8 @@ input[type="file"] {
 
 #inputLabel:hover,
 #press-plot:hover,
-#colorButton:hover {
+#colorButton:hover,
+#trainButton:hover {
   outline: auto;
 }
 
@@ -175,7 +177,7 @@ input[type="file"] {
 }
 
 #fairness-container,
-#loss-container,
+#final-container,
 #train-container {
   width: 20vw;
   height: 30vh;
@@ -190,7 +192,9 @@ input[type="file"] {
   flex-direction: column;
 }
 
-.values {
+.values,
+.final-values,
+.training {
   font-size: 85%;
   width: 90%;
   margin: 0.5% auto;
@@ -203,12 +207,21 @@ input[type="file"] {
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.values:hover {
+.training {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.values:hover,
+.final-values:hover,
+.training:hover {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   font-size: 90%;
 }
 
-.values h2 {
+.values h2,
+.final-values h2 {
   margin: 0 0 10px;
   text-align: center;
   color: white;
@@ -218,8 +231,15 @@ input[type="file"] {
 }
 
 #fairness-initial-value,
-#stress-initial-value {
+#stress-initial-value,
+#fairness-final-value,
+#stress-final-value,
+#learning-rate-value,
+#momentum-value,
+#loss-value {
   margin: 0 0 10px;
+  margin-right: 10px;
+  margin-left: 10px;
   text-align: center;
   color: #6200ee;
   padding: 5px;
@@ -228,8 +248,27 @@ input[type="file"] {
   outline: auto;
 }
 
-#loss-container {
+#train-container h2 {
+  margin: 0 0 10px;
+  margin-right: 10px;
+  margin-left: 10px;
+  text-align: center;
+  color: white;
+  padding: 10px;
+  background-color: #3700b3;
+  border-radius: 15px;
+}
+
+#train-container {
   width: 50vw;
+}
+
+#trainButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10px;
+  margin: 5px;
 }
 
 span {

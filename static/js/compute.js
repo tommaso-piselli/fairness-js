@@ -121,7 +121,9 @@ function fairness(graphData, x) {
     let fairnessSquared = fairness.square();
 
     let loss = fairnessSquared.div(2);
+    let metric = fairness;
+    metric = metric.dataSync()[0];
 
-    return fairness;
+    return [loss, metric];
   });
 }
