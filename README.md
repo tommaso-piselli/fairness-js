@@ -30,17 +30,19 @@ Esame di Programmazione per Internet e Web
 - aggiungere un tool per scegliere esattamente quali nodi colorare (?)
 - aggiungere pulsante per re run dell'applicazione
 - aggiungere Tooltip
-- aggiungere initial and final stress
+- aggiungere ~initial and~ final stress and fairness
+- Implementare train con momentum gradient descent
+- Update color scheme
 
 ## 🐛 Known Bugs (To Fix):
 
 > ~Mouseover a vertex goes back to black instead of the new color~\
-> Preprocessing issues\
-> Resizing window is not consistent with graph view
+> ~Preprocessing issues~\
+> Resizing window is not consistent with graph view --> bootstrap or tailwind
 
 # 🔃 Changelog
 
-> [13/07 - 18:20 🕐] Add Random graphs generator, checked whether stress and fairness work properly\
+> [13/07 - 18:20 🕐] Add Random graphs generator, checked ✔️ whether stress and fairness work properly\
 > [11/07 - 12:15 🕐] Add Preprocess for more graphs\
 > [07/07 - 18:04 🕐] Fix Mouseover bug and graph out of window\
 > [07/07 - 11:36 🕐] Added color info panel\
