@@ -33,6 +33,7 @@ Esame di Programmazione per Internet e Web
 - aggiungere ~initial and~ final stress and fairness
 - Implementare train con momentum gradient descent
 - Update color scheme
+- aggiungere calcolo delle posizioni randomiche in Javascript invece che in Python
 
 ## 🐛 Known Bugs (To Fix):
 
