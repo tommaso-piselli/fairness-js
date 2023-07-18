@@ -92,9 +92,10 @@ fileInput.on("change", function () {
 
       // TODO: Aggiornare coefficienti con slider
       let coef = {
-        stress: 0.8,
-        fairness: 0.2,
+        stress: 0.5,
+        fairness: 0.5,
       };
+
       let graphDistance = graphData.shortestPath;
       let stressWeight = graphData.weight;
       let graph = graphData;
@@ -108,7 +109,8 @@ fileInput.on("change", function () {
       };
 
       // OUTPUT
-      stressInitialValue = stress(graphDistance, stressWeight, x)[1];
+      let pdist = pairwiseDistance(dataObj.x);
+      stressInitialValue = stress(pdist, graphDistance, stressWeight)[1];
       fairnessInitialValue = fairness(graphData, x)[1];
 
       d3.select("#stress-initial-value")
@@ -139,6 +141,12 @@ fileInput.on("change", function () {
         train(dataObj, niter, optimizer, (record) => {
           metrics.push(record.metrics);
           losses.push(record.loss);
+          /* if (losses.length > maxPlotIter) {
+            losses = losses.slice(losses.length - maxPlotIter);
+          } */
+          /*  if (metrics.length > maxMetricSize) {
+            metrics = metrics.slice(metrics.length - maxMetricSize);
+          } */
           if (losses.length >= 10) {
             let n = losses.length;
             let firstSlice = losses.slice(
@@ -155,15 +163,13 @@ fileInput.on("change", function () {
           niter -= 1;
           console.log("N°iter:" + niter);
           if (niter % 2 == 0) {
-            //update graph display every 2 iterations
-            //console.log("Inside IF");
-            //let x_arr = scaler.fitTransform(x.arraySync());
-            //console.log(x_arr);
             let x_arr = postprocess(x.arraySync(), graph);
             updateNodePosition(dataObj.graph, x_arr);
             plotGraph(dataObj.graph);
+
             // OUTPUT
-            stressFinalValue = stress(graphDistance, stressWeight, x)[1];
+            pdist = pairwiseDistance(dataObj.x);
+            stressFinalValue = stress(pdist, graphDistance, stressWeight)[1];
             fairnessFinalValue = fairness(graphData, x)[1];
 
             console.log("Loss: " + record.loss);

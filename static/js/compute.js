@@ -20,18 +20,24 @@ function postprocess(x, graph) {
 
 function pairwiseDistance(x) {
   return tf.tidy(() => {
-    let xNormSquared = x.pow(2).sum(1).reshape([-1, 1]);
+    let xNormSquared = x.norm("euclidean", 1, true).pow(2);
     let pairwiseDotProduct = x.matMul(x.transpose());
     let pdistSquared = pairwiseDotProduct
       .mul(-2)
       .add(xNormSquared)
       .add(xNormSquared.transpose());
-    let pdistSquaredClipped = pdistSquared.clipByValue(0, Infinity).sqrt();
-    return pdistSquaredClipped;
+
+    //console.log("pdistSquared before sqrt:", pdistSquared.arraySync());
+    let epsilon = 1e-8;
+    let pdist = pdistSquared.clipByValue(epsilon, Infinity).sqrt();
+
+    //console.log("pdistSquared after sqrt:", pdist.arraySync());
+
+    return pdist;
   });
 }
 
-function stress(graph, x) {
+/* function stress(graph, x) {
   return tf.tidy(() => {
     let graphDistance = tf.tensor(graph.shortestPath);
     let pdist = pairwiseDistance(x);
@@ -60,23 +66,20 @@ function stress(graph, x) {
     //return [loss, stress.dataSync()[0], pdist];
     return [loss, metric, pdist_normalized.arraySync()];
   });
-}
+}*/
 
-function stress(graph_distance, graph_weight, x) {
+function stress(pdist, graph_distance, graph_weight) {
   return tf.tidy(() => {
-    let graphDistance = tf.tensor(graph_distance);
-    //console.log("x: " + x.print());
-    let pdist = pairwiseDistance(x);
-    //console.log("pdist: " + pdist.print());
-    let weight = tf.tensor(graph_weight);
     let n = pdist.shape[0];
     let mask = tf.scalar(1.0).sub(tf.eye(n));
+    let graphDistance = tf.tensor(graph_distance);
+    let weight = tf.tensor(graph_weight);
 
     let numerator = graphDistance.mul(pdist).mul(weight).mul(mask).sum();
     let denominator = graphDistance.square().mul(weight).mul(mask).sum();
     let optimalScaling = numerator.div(denominator);
 
-    let stress = pdist.sub(graphDistance).square().mul(weight).sum();
+    let stress = pdist.sub(graphDistance).square().mul(weight).sum().div(2);
     let loss = stress.div(2);
 
     // METRIC
@@ -89,7 +92,14 @@ function stress(graph_distance, graph_weight, x) {
       .div(2);
     metric = metric.dataSync()[0];
 
-    //return [loss, stress.dataSync()[0], pdist];
+    //Debug
+    /*   console.log("graphDistance:", graphDistance.arraySync());
+    console.log("pdist:", pdist.arraySync());
+    console.log("weight:", weight.arraySync());
+    console.log("numerator:", numerator.arraySync());
+    console.log("denominator:", denominator.arraySync());
+    console.log("optimalScaling:", optimalScaling.arraySync()); */
+
     return [loss, metric, pdist_normalized.arraySync()];
   });
 }
@@ -214,9 +224,9 @@ function trainOneIter(dataObj, optimizer, computeMetric = true) {
 
         if (coef.stress > 0) {
           let [st, m_st, pdist_normalized] = stress(
+            pdist,
             graphDistance,
-            stressWeight,
-            x
+            stressWeight
           );
           metrics.stress = m_st;
           //console.log("(1.a)m_st: " + m_st);
@@ -273,5 +283,6 @@ function updateNodePosition(graph, x_arr) {
   graph.nodes.forEach((node, i) => {
     node.x = x_arr[i][0];
     node.y = x_arr[i][1];
+    //console.log("Update");
   });
 }

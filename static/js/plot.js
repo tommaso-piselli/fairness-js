@@ -4,7 +4,7 @@ function plotGraph(graph) {
   let width = parseFloat(svg.style("width"));
   let height = parseFloat(svg.style("height"));
 
-  console.log("[w x h] : [" + width + " x " + height + "]");
+  //console.log("[w x h] : [" + width + " x " + height + "]");
   let margin = 20;
 
   // min max of the scale
