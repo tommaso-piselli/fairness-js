@@ -29,7 +29,7 @@ Esame di Programmazione per Internet e Web
 - ~aggiungere un panel per selezionare la percentuale di nodi colorati.~
 - aggiungere un tool per scegliere esattamente quali nodi colorare (?)
 - aggiungere pulsante per re run dell'applicazione
-- aggiungere Tooltip
+- ~aggiungere Tooltip~
 - aggiungere ~initial and~ final stress and fairness
 - Implementare train con momentum gradient descent
 - Update color scheme
