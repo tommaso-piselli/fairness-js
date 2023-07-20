@@ -40,10 +40,11 @@ Esame di Programmazione per Internet e Web
 > ~Mouseover a vertex goes back to black instead of the new color~\
 > ~Preprocessing issues~\
 > Resizing window is not consistent with graph view --> bootstrap or tailwind
-> Bigger graphs => loss goes to zero very fast
+> ~Bigger graphs => loss goes to zero very fast~ There was a problem in the pairwiseDistance clipping to 0
 
 # 🔃 Changelog
 
+> [18/07 - 16:30 🕐] Implemented fairness + stress minimization through coefficient selection: working on all graphs at disposal\
 > [13/07 - 18:20 🕐] Add Random graphs generator, checked ✔️ whether stress and fairness work properly\
 > [11/07 - 12:15 🕐] Add Preprocess for more graphs\
 > [07/07 - 18:04 🕐] Fix Mouseover bug and graph out of window\
