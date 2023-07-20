@@ -59,11 +59,19 @@ function plotGraph(graph) {
     .attr("cy", (d) => yScale(d.y))
     .attr("r", 4)
     .style("fill", (d) => d.color)
-    .on("mouseover", function (d) {
-      d3.select(this).style("fill", "#03DAC5").attr("r", 6);
+    .on("mouseover", function () {
+      let data = d3.select(this).data()[0];
+      d3.select(this)
+        .style("fill", "#03DAC5")
+        .attr("r", 6)
+        .append("title")
+        .text(
+          `id: ${data.id}\nx: ${data.x.toFixed(2)}\ny: ${data.y.toFixed(2)}`
+        );
     })
     .on("mouseout", function (d) {
       d3.select(this).style("fill", this.__data__.color).attr("r", 4);
+      d3.select(this).select("title").remove();
     });
 }
 

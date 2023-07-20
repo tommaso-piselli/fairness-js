@@ -17,36 +17,6 @@ let blueNodes = [];
 let dataObj;
 let x;
 
-class MinMaxScaler {
-  constructor(range) {
-    this.range = range;
-  }
-
-  fitTransform(arr) {
-    let transposed = this.transpose(arr);
-    let scaled = transposed.map((column) => this.scaleColumn(column));
-    return this.transpose(scaled);
-  }
-
-  scaleColumn(column) {
-    let min = Math.min(...column);
-    let max = Math.max(...column);
-    return column.map((x) => this.scale(x, min, max));
-  }
-
-  scale(x, min, max) {
-    return (
-      ((x - min) / (max - min)) * (this.range[1] - this.range[0]) +
-      this.range[0]
-    );
-  }
-
-  transpose(arr) {
-    return arr[0].map((_, i) => arr.map((row) => row[i]));
-  }
-}
-let scaler = new MinMaxScaler([10, 440]);
-
 percentSlider.on("input", function () {
   percentLabel.text(this.value + "%");
 });
@@ -74,19 +44,16 @@ fileInput.on("change", function () {
       let coords = graphData.nodes.map((node) => [node.x, node.y]);
       x = tf.variable(tf.tensor2d(coords));
 
-      // Plot graph (see below)
-      plotGraph(graphData);
-
       // Init
-      let sampleSize = 5;
-      let maxPlotIter = 50;
       let niter = 1000;
       let maxIter = niter;
-      let maxMetricSize = 10;
 
       let lr = 0.01;
-      let momentum = 0.5;
+      let momentum = 0.1;
       let optimizer = tf.train.momentum(lr, momentum, false);
+
+      plotGraph(graphData);
+
       let losses = [];
       let metrics = [];
 
@@ -117,7 +84,7 @@ fileInput.on("change", function () {
         .text(` ${stressInitialValue.toFixed(2)}`)
         .style("font-weight", "bold");
       d3.select("#fairness-initial-value")
-        .text(` ${fairnessInitialValue.toFixed(2)}`)
+        .text(` ${fairnessInitialValue.toFixed(3)}`)
         .style("font-weight", "bold");
       d3.select("#stress-coeff-value")
         .text(` ${coef.stress}`)
@@ -172,13 +139,13 @@ fileInput.on("change", function () {
             stressFinalValue = stress(pdist, graphDistance, stressWeight)[1];
             fairnessFinalValue = fairness(graphData, x)[1];
 
-            console.log("Loss: " + record.loss);
+            //console.log("Loss: " + record.loss);
 
             d3.select("#stress-final-value")
               .text(` ${stressFinalValue.toFixed(2)}`)
               .style("font-weight", "bold");
             d3.select("#fairness-final-value")
-              .text(` ${fairnessFinalValue.toFixed(2)}`)
+              .text(` ${fairnessFinalValue.toFixed(3)}`)
               .style("font-weight", "bold");
             d3.select("#loss-value")
               .text(` ${record.loss.toFixed(2)}`)
@@ -206,7 +173,7 @@ colorButton.on("click", function () {
   colorNodes(graphData, percent);
   fairnessInitialValue = fairness(graphData, x)[1];
   d3.select("#fairness-initial-value")
-    .text(` ${fairnessInitialValue.toFixed(2)}`)
+    .text(` ${fairnessInitialValue.toFixed(3)}`)
     .style("font-weight", "bold");
 });
 
