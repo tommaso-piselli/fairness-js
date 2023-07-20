@@ -49,7 +49,7 @@ fileInput.on("change", function () {
       let maxIter = niter;
 
       let lr = 0.01;
-      let momentum = 0.1;
+      let momentum = 0.9;
       let optimizer = tf.train.momentum(lr, momentum, false);
 
       plotGraph(graphData);
@@ -59,8 +59,8 @@ fileInput.on("change", function () {
 
       // TODO: Aggiornare coefficienti con slider
       let coef = {
-        stress: 0.5,
-        fairness: 0.5,
+        stress: 0.8,
+        fairness: 0.2,
       };
 
       let graphDistance = graphData.shortestPath;
