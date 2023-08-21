@@ -4,10 +4,10 @@
 
 #### 🔦 Light Theme:
 
-- background: #FFFFFF (white)
-- main color: #6200ee
-- secondary color: #3700b3
-- highlight color: #03dac5
+- background: #FFFFFF
+- main color: #6200EE
+- secondary color: #3700B3
+- highlight color: #03DAC5
 - shadows: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23)
 
 #### 🕶️ Dark Theme:
