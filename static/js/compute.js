@@ -170,7 +170,7 @@ function fairness(graphData, x) {
     let fairnessSquared = fairness.square();
 
     let loss = fairnessSquared.div(2);
-    let metric = fairness;
+    let metric = fairnessSquared;
     metric = metric.dataSync()[0];
 
     return [loss, metric];

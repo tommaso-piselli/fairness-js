@@ -59,8 +59,8 @@ fileInput.on("change", function () {
 
       // TODO: Aggiornare coefficienti con slider
       let coef = {
-        stress: 0.8,
-        fairness: 0.2,
+        stress: 0.5,
+        fairness: 0.5,
       };
 
       let graphDistance = graphData.shortestPath;
