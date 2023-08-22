@@ -29,13 +29,13 @@ function plotGraph(graph) {
       .domain(xExtent)
       .range([margin, width - margin]);
 
-    // Adjust the scale to fit within the available height
+    // Adjust the scale to fit - height
     yScale = d3
       .scaleLinear()
       .domain(yExtent)
       .range([
-        Math.max(margin, (height - yRange * scale) / 2), // Ensure it's not less than margin
-        Math.min(height - margin, (height + yRange * scale) / 2), // Ensure it's not more than height - margin
+        Math.max(margin, (height - yRange * scale) / 2),
+        Math.min(height - margin, (height + yRange * scale) / 2),
       ]);
   } else {
     let scale = (height - 2 * margin) / yRange;
@@ -44,13 +44,13 @@ function plotGraph(graph) {
       .domain(yExtent)
       .range([margin, height - margin]);
 
-    // Adjust the scale to fit within the available width
+    // Adjust the scale to fit - width
     xScale = d3
       .scaleLinear()
       .domain(xExtent)
       .range([
-        Math.max(margin, (width - xRange * scale) / 2), // Ensure it's not less than margin
-        Math.min(width - margin, (width + xRange * scale) / 2), // Ensure it's not more than width - margin
+        Math.max(margin, (width - xRange * scale) / 2),
+        Math.min(width - margin, (width + xRange * scale) / 2),
       ]);
   }
   // Draw edges
