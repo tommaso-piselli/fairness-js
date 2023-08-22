@@ -6,7 +6,7 @@ let graphData;
 let colorButton = d3.select("#colorButton");
 let percentSlider = d3.select("#percentSlider");
 let percentLabel = d3.select("#percentLabel");
-let plotButton = d3.select("#press-plot");
+let centerButton = d3.select("#centerButton");
 let trainButton = d3.select("#trainButton");
 let svgLoss;
 
@@ -177,6 +177,6 @@ colorButton.on("click", function () {
     .style("font-weight", "bold");
 });
 
-plotButton.on("click", function () {
+centerButton.on("click", function () {
   plotGraph(graphData);
 });
