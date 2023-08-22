@@ -114,7 +114,8 @@ body {
   min-height: 100vh;
   max-width: 100vw;
   margin: auto auto;
-  padding: var(--PADDING-TB) var(--PADDING-SIDE);
+  display: flex;
+  flex-direction: column;
 }
 
 h1,
@@ -159,7 +160,8 @@ a:active {
 
 .header__section-one {
   background-color: var(--BGCOLOR-HEADER);
-  border-radius: var(--BORDER-RADIUS);
+  border-bottom-left-radius: var(--BORDER-RADIUS);
+  border-bottom-right-radius: var(--BORDER-RADIUS);
   padding: 0.25rem 0.5rem;
   display: flex;
   flex-flow: row nowrap;
@@ -230,6 +232,8 @@ a:active {
 .header__nav {
   background-color: var(--BGCOLOR-LIGHTER);
   margin: 0.5em auto;
+  max-width: 95%;
+  padding: var(--PADDING-TB) var(--PADDING-SIDE);
   border-bottom: var(--BORDER);
   border-radius: var(--BORDER-RADIUS);
   font-weight: bold;
@@ -257,4 +261,16 @@ a:active {
   display: flex;
   justify-content: space-evenly;
   gap: 1rem;
+}
+
+/* || MAIN */
+.main {
+  flex-grow: 1;
+}
+
+/* || FOOTER */
+.footer {
+  position: sticky;
+  bottom: 0;
+  background-color: var(--COLOR-SIDEBAR);
 }
