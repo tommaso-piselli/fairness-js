@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Fairness</title>
+    <link rel="icon" href="images\logo.png" type="image/icon type" />
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.12.0/dist/tf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/6.6.4/math.js"></script>
+    <link rel="stylesheet" type="text/css" href="static/css/lightTheme.css" />
+  </head>
+  <body>
+    <h1>GRADIENT DESCENT + FAIRNESS</h1>
+
+    <div id="first-row">
+      <div id="dataset-container">
+        <div id="file-selector">
+          <h2>File Selection</h2>
+          <label for="fileInput" id="inputLabel">Load File</label>
+          <input type="file" id="fileInput" />
+          <button id="press-plot">Center</button>
+        </div>
+        <div id="json-display">
+          <h2>JSON display</h2>
+          <textarea
+            id="graphJson"
+            name="graphJson"
+            rows="10"
+            cols="30"
+            style="overflow: auto"
+          ></textarea>
+        </div>
+        <div id="file-details">
+          <h2>File Details</h2>
+          <p id="nome-grafo">
+            Graph name: <b><span id="graph-name"></span></b>
+          </p>
+          <p id="numero-vertici">
+            Number of Vertices:<b> <span id="vertex-count"> </span></b>
+          </p>
+          <p id="numero-archi">
+            Number of Edges: <b><span id="edge-count"></span></b>
+          </p>
+          <!-- Aggiungere qui altre informazioni sul file -->
+        </div>
+      </div>
+      <!-- TODO: THIS -->
+      <div id="graph-container">
+        <svg id="graph" width="500" height="500"></svg>
+      </div>
+      <!-- TODO: THIS -->
+      <div id="tools-container">
+        <div id="color-slider">
+          <h2>Color Slider</h2>
+          <input
+            type="range"
+            id="percentSlider"
+            min="0"
+            max="100"
+            step="5"
+            value="50"
+          />
+          <button id="colorButton">Color Nodes</button>
+          <span id="percentSpan"
+            >Current Percent: <label id="percentLabel"></label
+          ></span>
+        </div>
+        <!--         <div id="color-picker">
+          <h2>Color Picker</h2>
+        </div> -->
+        <div id="color-info">
+          <h2>Color Info</h2>
+        </div>
+      </div>
+    </div>
+
+    <div id="second-row">
+      <div id="fairness-container">
+        <div class="values">
+          <h2>Stress initial value</h2>
+          <div id="stress-initial-value"></div>
+          <h2>Fairness initial value</h2>
+          <div id="fairness-initial-value"></div>
+        </div>
+      </div>
+      <div class="center">
+        <div id="train-container">
+          <div class="training">
+            <button id="trainButton">TRAIN</button>
+            <div id="learning-rate">
+              <h2>Learning Rate Value</h2>
+              <div id="learning-rate-value"></div>
+            </div>
+            <div id="momentum">
+              <h2>Momentum Value</h2>
+              <div id="momentum-value"></div>
+            </div>
+            <div id="loss">
+              <h2>Loss Value</h2>
+              <div id="loss-value"></div>
+            </div>
+          </div>
+          <div class="coeff">
+            <div id="stress-coeff">
+              <h2>Stress Coeff</h2>
+              <div id="stress-coeff-value"></div>
+            </div>
+            <div id="fair-coeff">
+              <h2>Fairness Coeff</h2>
+              <div id="fair-coeff-value"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="final-container">
+        <div class="final-values">
+          <h2>Stress final value</h2>
+          <div id="stress-final-value"></div>
+          <h2>Fairness final value</h2>
+          <div id="fairness-final-value"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="lossSvg">
+      <svg id="svgLoss" width="500" height="500"></svg>
+    </div>
+
+    <script src="static/js/reader.js"></script>
+    <script src="static/js/plot.js"></script>
+    <script src="static/js/compute.js"></script>
+    <!-- <script src="train.js"></script> -->
+  </body>
+</html>

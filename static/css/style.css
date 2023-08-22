@@ -67,7 +67,7 @@ textarea {
   --BOX-SHADOW: 0 0 10px 2px var(--COLOR-SHADOW);
 }
 
-@media (prefers-color-scheme: light) {
+@media (prefers-color-scheme: dark) {
   :root {
     /* THEME COLORS - DARK MODE */
     /* COLORS */
@@ -531,17 +531,15 @@ input[type="file"] {
 
 /* || FOOTER */
 .footer {
-  margin-bottom: 0.2em;
-  margin-top: 0.2em;
-  position: sticky;
-  max-height: 1.4rem;
-  font-family: "Nunito";
-  font-size: 0.8em;
-  text-align: center;
-  color: var(--COLOR-HEADING);
-  bottom: 0;
   background-color: var(--COLOR-SIDEBAR);
   box-shadow: var(--BOX-SHADOW);
+  color: var(--COLOR-HEADING);
+  font-family: "Nunito";
+  font-size: 0.8em;
+  margin-top: 0.2em;
+  max-height: 1.4rem;
+  position: sticky;
+  text-align: center;
 }
 
 .footer p {
