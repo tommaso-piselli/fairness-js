@@ -30,21 +30,21 @@ textarea {
   --FS-HEADING: clamp(1.5rem, 4vh, 4rem);
 
   /* COLORS */
-  --BGCOLOR-BODY: #fff;
+  --BGCOLOR-BODY: #dfe0e4;
   --BGCOLOR-HEADER: #fff;
   --BGCOLOR-LIGHTER: #ffffff;
-  --BGCOLOR: #fff;
-  --BGCOLOR-HIGHLIGHT: #40414f;
+  --BGCOLOR: #dfe0e4;
+  --BGCOLOR-HIGHLIGHT: #dfe0e4;
   --COLOR-BORDER: #565869;
   --COLOR-SHADOW: #303139;
   --COLOR-FONT-FADE: #d9d9e3;
-  --COLOR-FONT: #787878;
-  --COLOR-HEADING: #000;
+  --COLOR-FONT: #000;
+  --COLOR-HEADING: #fff;
   --COLOR-SIDEBAR: #202123;
   --HIGHLIGHT-COLOR: #ffd900;
   --LINK-ACTIVE: #ffd900;
-  --LINK-COLOR: #787878;
-  --LINK-HOVER: hsla(0, 0%, 47%, 0.6);
+  --LINK-COLOR: #fff;
+  --LINK-HOVER: #dfe0e4;
 
   /* THEME COLORS */
   --MAIN-COLOR: #f0dc55;
@@ -62,9 +62,12 @@ textarea {
   /* STANDARD PADDING */
   --PADDING-TB: 0.25em;
   --PADDING-SIDE: 2.5%;
+
+  /* BOX SHADOW */
+  --BOX-SHADOW: 0 0 10px 2px var(--COLOR-SHADOW);
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   :root {
     /* THEME COLORS - DARK MODE */
     /* COLORS */
@@ -76,7 +79,7 @@ textarea {
     --COLOR-BORDER: #565869;
     --COLOR-SHADOW: #303139;
     --COLOR-FONT-FADE: #565869;
-    --COLOR-FONT: #f5f5f5;
+    --COLOR-FONT: #c5c5d2;
     --COLOR-HEADING: #fff;
     --COLOR-SIDEBAR: #202123;
     --HIGHLIGHT-COLOR: #ffd900;
@@ -111,6 +114,11 @@ textarea {
   align-items: center;
   gap: min(10px, 1em);
 }
+
+.div__header {
+  width: 12em;
+}
+
 /* || GENERAL STYLES */
 
 html {
@@ -145,11 +153,11 @@ h3 {
 h2,
 h3 {
   background-color: var(--COLOR-SIDEBAR);
-  margin-top: 1em;
+  margin-top: 0.4em;
   margin-bottom: 0.5em;
   padding: var(--PADDING-TB) var(--PADDING-SIDE);
   border-radius: var(--BORDER-RADIUS);
-  box-shadow: 0 0 10px 2px var(--COLOR-SHADOW);
+  box-shadow: var(--BOX-SHADOW);
 }
 
 p {
@@ -211,7 +219,7 @@ a:active {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-  box-shadow: 0 0 10px 2px var(--COLOR-SHADOW);
+  box-shadow: var(--BOX-SHADOW);
 }
 
 .header__h1 {
@@ -322,17 +330,18 @@ a:active {
   align-items: center;
   gap: 0.5rem;
   padding: var(--PADDING-TB) var(--PADDING-SIDE);
-  margin-top: 1.5rem;
+  margin-top: 0.4rem;
 }
 
 /* || CARDs */
 
 .card {
+  max-height: 83vh;
   scroll-margin-top: 8rem;
   width: min(100%, 350px); /* ToDO: FIX AFTER */
   background-color: var(--BGCOLOR-LIGHTER);
   border-radius: var(--BORDER-RADIUS);
-  box-shadow: 0px 0px 10px 1px var(--COLOR-SHADOW);
+  box-shadow: var(--BOX-SHADOW);
   padding: var(--PADDING-TB) var(--PADDING-SIDE);
   display: flex;
   flex-direction: column;
@@ -341,6 +350,10 @@ a:active {
 
 /* || FILE INPUT*/
 
+.main__h2 {
+  text-align: center;
+}
+
 input[type="file"] {
   display: none;
 }
@@ -348,15 +361,17 @@ input[type="file"] {
 .main__label,
 .main__button {
   margin-bottom: 0;
-  width: 150px;
+  width: 130px;
   text-align: center;
   justify-content: space-evenly;
   background-color: var(--BGCOLOR-LIGHTER);
   padding: var(--PADDING-TB) var(--PADDING-SIDE);
   border: var(--BORDER);
   border-radius: 1em;
-  box-shadow: 0 0 10px 2px var(--COLOR-SHADOW);
-  color: #c5c5d2;
+  box-shadow: var(--BOX-SHADOW);
+  color: var(--COLOR-FONT);
+  font-family: "Nunito";
+  font-weight: bold;
 }
 
 .main__label:hover,
@@ -379,51 +394,156 @@ input[type="file"] {
   background-color: var(--BGCOLOR);
   border: var(--BORDER);
   border-radius: var(--BORDER-RADIUS);
-  box-shadow: 0 0 10px 2px var(--COLOR-SHADOW);
+  box-shadow: var(--BOX-SHADOW);
+  font-family: "Nunito";
+  color: var(--COLOR-FONT);
 }
 
 .main__textarea:focus {
   border: 3px solid white;
 }
 
+.box {
+  min-width: 16em;
+  border: var(--BORDER);
+  padding: 1em 1em 1em 1em;
+  border-radius: var(--BORDER-RADIUS);
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1em;
+  box-shadow: var(--BOX-SHADOW);
+}
+
+.main__h3 {
+  margin-top: 0;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.box p {
+  font-family: "Nunito";
+  margin: 0;
+  text-align: left;
+}
+
+/* || GRAPH CONTAINER */
+#card2 {
+  background-color: var(--COLOR-SIDEBAR);
+}
+
+.main__graphBox {
+  background-color: var(--BGCOLOR-LIGHTER);
+  width: 900px;
+  height: 900px;
+  margin: 15px;
+  border: 3px solid var(--COLOR-BORDER);
+  border-radius: var(--BORDER-RADIUS);
+}
+
+.svg__graph {
+  width: 100%;
+  height: 100%;
+}
+
 /* || MEDIA QUERY */
+
+/* || XSMALL */
+@media screen and (min-width: 320px) {
+  .card {
+    width: min(100%, 400px);
+  }
+
+  .main__graphBox {
+    width: 350px;
+    height: 350px;
+  }
+}
 
 /* || SMALL */
 @media screen and (min-width: 576px) {
   .card {
-    width: min(100%, 400px);
+    width: min(100%, 550px);
+  }
+
+  .main__graphBox {
+    width: 500px;
+    height: 500px;
   }
 }
 
 /* || MEDIUM */
 @media screen and (min-width: 768px) {
   .card {
-    width: min(100%, 600px);
+    width: min(100%, 740px);
+  }
+
+  .main__graphBox {
+    width: 650px;
+    height: 650px;
   }
 }
 
 /* || LARGE */
 @media screen and (min-width: 992px) {
+  .main {
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+  }
+
   .card {
-    width: min(100%, 1200px);
+    width: min(100%, 850px);
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  .main__graphBox {
+    width: 650px;
+    height: 650px;
   }
 }
 
 /* || XL  */
 @media screen and (min-width: 1200px) {
   .main {
+    align-items: stretch;
     flex-flow: row wrap;
   }
 
   .card {
-    width: min(calc(33% - 1rem), 800px);
+    height: 85vh;
+    width: min(100%, 450px);
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  #card2 {
+    width: 850px;
+  }
+
+  .main__graphBox {
+    width: 700px;
+    height: 700px;
   }
 }
 
 /* || FOOTER */
 .footer {
+  margin-bottom: 0.2em;
+  margin-top: 0.2em;
   position: sticky;
+  max-height: 1.4rem;
+  font-family: "Nunito";
+  font-size: 0.8em;
+  text-align: center;
+  color: var(--COLOR-HEADING);
   bottom: 0;
   background-color: var(--COLOR-SIDEBAR);
-  box-shadow: 0 0 10px 2px var(--COLOR-SHADOW);
+  box-shadow: var(--BOX-SHADOW);
+}
+
+.footer p {
+  margin: 0;
 }

@@ -1,3 +1,10 @@
+let store = document.querySelector(":root");
+
+function getColor(color) {
+  let root = getComputedStyle(store);
+  return root.getPropertyValue(color);
+}
+
 function plotGraph(graph) {
   svg.selectAll("*").remove(); // Clear previous selection
 
@@ -5,7 +12,7 @@ function plotGraph(graph) {
   let height = parseFloat(svg.style("height"));
 
   //console.log("[w x h] : [" + width + " x " + height + "]");
-  let margin = 20;
+  let margin = 40;
 
   // min max of the scale
   let xExtent = d3.extent(graph.nodes, (d) => d.x);
@@ -21,22 +28,31 @@ function plotGraph(graph) {
       .scaleLinear()
       .domain(xExtent)
       .range([margin, width - margin]);
+
+    // Adjust the scale to fit within the available height
     yScale = d3
       .scaleLinear()
       .domain(yExtent)
-      .range([(height - yRange * scale) / 2, (height + yRange * scale) / 2]);
+      .range([
+        Math.max(margin, (height - yRange * scale) / 2), // Ensure it's not less than margin
+        Math.min(height - margin, (height + yRange * scale) / 2), // Ensure it's not more than height - margin
+      ]);
   } else {
     let scale = (height - 2 * margin) / yRange;
     yScale = d3
       .scaleLinear()
       .domain(yExtent)
       .range([margin, height - margin]);
+
+    // Adjust the scale to fit within the available width
     xScale = d3
       .scaleLinear()
       .domain(xExtent)
-      .range([(width - xRange * scale) / 2, (width + xRange * scale) / 2]);
+      .range([
+        Math.max(margin, (width - xRange * scale) / 2), // Ensure it's not less than margin
+        Math.min(width - margin, (width + xRange * scale) / 2), // Ensure it's not more than width - margin
+      ]);
   }
-
   // Draw edges
   svg
     .selectAll("line")
@@ -47,8 +63,9 @@ function plotGraph(graph) {
     .attr("y1", (d) => yScale(graph.nodes[d.source].y))
     .attr("x2", (d) => xScale(graph.nodes[d.target].x))
     .attr("y2", (d) => yScale(graph.nodes[d.target].y))
-    .style("stroke", "black");
-
+    .style("stroke", "#000");
+  /* .style("stroke", getColor("--COLOR-SIDEBAR"));
+   */
   // Draw nodes
   svg
     .selectAll("circle")
