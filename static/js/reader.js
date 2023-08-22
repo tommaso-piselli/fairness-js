@@ -57,7 +57,6 @@ fileInput.on("change", function () {
       let losses = [];
       let metrics = [];
 
-      // TODO: Aggiornare coefficienti con slider
       let coef = {
         stress: 0.5,
         fairness: 0.5,

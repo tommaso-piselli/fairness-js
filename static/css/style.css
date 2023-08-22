@@ -336,7 +336,7 @@ a:active {
 /* || CARDs */
 
 .card {
-  max-height: 83vh;
+  max-height: 100vh;
   scroll-margin-top: 8rem;
   width: min(100%, 350px); /* ToDO: FIX AFTER */
   background-color: var(--BGCOLOR-LIGHTER);
@@ -510,10 +510,11 @@ input[type="file"] {
   .main {
     align-items: stretch;
     flex-flow: row wrap;
+    row-gap: 2rem;
   }
 
   .card {
-    height: 85vh;
+    height: 85.5vh;
     width: min(100%, 450px);
     align-items: center;
     justify-content: space-evenly;
@@ -526,6 +527,11 @@ input[type="file"] {
   .main__graphBox {
     width: 700px;
     height: 700px;
+  }
+
+  #card4,
+  #card5 {
+    max-height: 83vh;
   }
 }
 
