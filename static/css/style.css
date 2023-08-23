@@ -506,6 +506,10 @@ input[type="file"] {
   margin-top: 1em;
 }
 
+.div__color-info {
+  margin-top: 1em;
+}
+
 /* || SLIDER */
 input[type="range"] {
   -webkit-appearance: none;
