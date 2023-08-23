@@ -17,10 +17,10 @@ let blueNodes = [];
 let dataObj;
 let x;
 
-/* percentSlider.on("input", function () {
+percentSlider.on("input", function () {
   percentLabel.text(this.value + "%");
 });
-percentLabel.text(percentSlider.property("value") + "%"); */
+percentLabel.text(percentSlider.property("value") + "%");
 
 fileInput.on("change", function () {
   let file = this.files[0];

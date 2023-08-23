@@ -37,10 +37,12 @@ textarea {
   --BGCOLOR-HIGHLIGHT: #dfe0e4;
   --COLOR-BORDER: #565869;
   --COLOR-SHADOW: #303139;
+  --COLOR-SLIDER: #333;
   --COLOR-FONT-FADE: #d9d9e3;
   --COLOR-FONT: #000;
   --COLOR-HEADING: #fff;
   --COLOR-SIDEBAR: #202123;
+  --COLOR-STROKE: #303139;
   --HIGHLIGHT-COLOR: #ffd900;
   --LINK-ACTIVE: #ffd900;
   --LINK-COLOR: #fff;
@@ -50,7 +52,7 @@ textarea {
   --MAIN-COLOR: #f0dc55;
   --MAIN-COLOR-VARIANT: #e39729;
   --SECONDOARY-COLOR: #556af0;
-  --SECONDOARY-COLOR-VARIANT: #55f0db;
+  --SECONDOARY-COLOR-VARIANT: #2975e3;
   --HIGHLIGHT-COLOR: #ffd900;
   --HIGHLIGHT-COLOR-FADE: #ffd9004a;
   --ERROR-COLOR: #cf6679;
@@ -69,6 +71,12 @@ textarea {
 
 @media (prefers-color-scheme: dark) {
   :root {
+    /* FONTS */
+    --FF: "Nunito", sans-serif;
+    --FF-HEADING: "Robot", sans-serif;
+    --FS: clamp(1rem, 2.2vh, 1.5rem);
+    --FS-HEADING: clamp(1.5rem, 4vh, 4rem);
+
     /* THEME COLORS - DARK MODE */
     /* COLORS */
     --BGCOLOR-BODY: #343541;
@@ -81,7 +89,10 @@ textarea {
     --COLOR-FONT-FADE: #565869;
     --COLOR-FONT: #c5c5d2;
     --COLOR-HEADING: #fff;
+    --COLOR-STROKE: #c5c5d2;
     --COLOR-SIDEBAR: #202123;
+    --COLOR-SLIDER: #c5c5d2;
+    --COLOR-THUMB: #d2d2c5;
     --HIGHLIGHT-COLOR: #ffd900;
     --LINK-ACTIVE: #ffd900;
     --LINK-COLOR: hsl(0, 0%, 96%);
@@ -348,7 +359,7 @@ a:active {
   align-items: center;
 }
 
-/* || FILE INPUT*/
+/* || INPUT CARD */
 
 .main__h2 {
   text-align: center;
@@ -429,7 +440,13 @@ input[type="file"] {
   text-align: left;
 }
 
-/* || GRAPH CONTAINER */
+.box span {
+  font-weight: bold;
+  color: var(--MAIN-COLOR);
+  text-shadow: 0 0 10px var(--COLOR-SHADOW);
+}
+
+/* || GRAPH CARD */
 #card2 {
   background-color: var(--COLOR-SIDEBAR);
 }
@@ -446,6 +463,81 @@ input[type="file"] {
 .svg__graph {
   width: 100%;
   height: 100%;
+}
+
+/* || COLOR CARD */
+.div__color {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  border: var(--BORDER);
+  box-shadow: var(--BOX-SHADOW);
+  border-radius: var(--BORDER-RADIUS);
+  padding: var(--PADDING-TB) 10%;
+}
+
+.div__color-button {
+  margin-top: 1rem;
+}
+
+.div__slider {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5em;
+  padding: var(--PADDING-TB) var(--PADDING-SIDE);
+}
+
+.div__slider p {
+  margin-bottom: 0;
+}
+
+.div__slider label {
+  font-family: "Nunito";
+  font-weight: bold;
+  color: var(--MAIN-COLOR);
+  text-shadow: 0 0 10px var(--COLOR-SHADOW);
+}
+
+.slider__percent {
+  margin-top: 1em;
+}
+
+/* || SLIDER */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 12rem;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  background-color: var(--COLOR-SLIDER);
+  height: 0.5rem;
+  border-radius: var(--BORDER-RADIUS);
+  box-shadow: var(--BOX-SHADOW);
+}
+
+input[type="range"]::-moz-range-track {
+  background-color: var(--COLOR-SLIDER);
+  height: 0.5rem;
+  border-radius: var(--BORDER-RADIUS);
+  box-shadow: var(--BOX-SHADOW);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: calc(0.5rem / 2 - 1rem / 2);
+  background-color: var(--MAIN-COLOR-VARIANT);
+  height: 1rem;
+  width: 1rem;
+  border-radius: 50%;
+  box-shadow: var(--BOX-SHADOW);
 }
 
 /* || MEDIA QUERY */
@@ -515,7 +607,7 @@ input[type="file"] {
 
   .card {
     height: 85.5vh;
-    width: min(100%, 450px);
+    width: min(100%, 400px);
     align-items: center;
     justify-content: space-evenly;
   }
@@ -529,6 +621,38 @@ input[type="file"] {
     height: 700px;
   }
 
+  #card4,
+  #card5 {
+    max-height: 83vh;
+  }
+}
+
+/* || 1440p */
+/* TODO: Check this after on bigger res*/
+@media screen and (min-width: 1350px) {
+  .main {
+    align-items: stretch;
+    flex-flow: row wrap;
+    row-gap: 2rem;
+  }
+
+  .card {
+    height: 85.5vh;
+    width: min(100%, 450px);
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  #card2 {
+    width: 750px;
+  }
+
+  .main__graphBox {
+    width: 630px;
+    height: 630px;
+  }
+
+  #card3,
   #card4,
   #card5 {
     max-height: 83vh;

@@ -63,9 +63,9 @@ function plotGraph(graph) {
     .attr("y1", (d) => yScale(graph.nodes[d.source].y))
     .attr("x2", (d) => xScale(graph.nodes[d.target].x))
     .attr("y2", (d) => yScale(graph.nodes[d.target].y))
-    .style("stroke", "#000");
-  /* .style("stroke", getColor("--COLOR-SIDEBAR"));
-   */
+    /* .style("stroke", "#000"); */
+    .style("stroke", getColor("--COLOR-STROKE"));
+
   // Draw nodes
   svg
     .selectAll("circle")
@@ -169,9 +169,13 @@ function updateColorInfo(graph) {
     let p = colorInfo.append("p");
     p.text("");
     p.append("text")
-      .style("color", color)
+      /* .style("color", color) */
+      .text(color)
       .style("font-weight", "bold")
-      .text(color);
+      .style("text-decoration", "underline")
+      .style("text-underline-offset", "0.2em")
+      .style("text-decoration-color", color)
+      .style("text-transform", "capitalize");
     p.append("text").text(" nodes");
     p.append("span")
       .style("font-weight", "bold")
