@@ -482,6 +482,10 @@ input[type="file"] {
   margin-top: 1rem;
 }
 
+.color__button {
+  width: 7rem;
+}
+
 .div__slider {
   display: flex;
   flex-direction: column;
@@ -632,7 +636,6 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 /* || 1440p */
-/* TODO: Check this after on bigger res*/
 @media screen and (min-width: 1350px) {
   .main {
     align-items: stretch;
@@ -657,6 +660,25 @@ input[type="range"]::-webkit-slider-thumb {
   }
 
   #card3,
+  #card4,
+  #card5 {
+    max-height: 83vh;
+  }
+}
+
+/* || 1750p */
+@media screen and (min-width: 1750px) {
+  .card {
+    height: 85.5vh;
+    width: min(100%, 450px);
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  #card3 {
+    max-height: 85.5vh;
+  }
+
   #card4,
   #card5 {
     max-height: 83vh;
