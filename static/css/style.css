@@ -548,6 +548,21 @@ input[type="range"]::-webkit-slider-thumb {
   box-shadow: var(--BOX-SHADOW);
 }
 
+/* || TRAIN */
+
+.div__initial {
+  margin-top: 1em;
+}
+
+/* || RESULT */
+#card5 {
+  background-color: var(--COLOR-SIDEBAR);
+}
+
+.div__final {
+  background-color: var(--BGCOLOR-LIGHTER);
+}
+
 /* || MEDIA QUERY */
 
 /* || XSMALL */
@@ -687,6 +702,9 @@ input[type="range"]::-webkit-slider-thumb {
 
 /* || FOOTER */
 .footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: var(--COLOR-SIDEBAR);
   box-shadow: var(--BOX-SHADOW);
   color: var(--COLOR-HEADING);

@@ -40,8 +40,8 @@
           <li class="header__li"><a href="#card1">Input</a></li>
           <li class="header__li"><a href="#card2">Graph</a></li>
           <li class="header__li"><a href="#card3">Color</a></li>
-          <li class="header__li">card4</li>
-          <li class="header__li">card5</li>
+          <li class="header__li"><a href="#card4">Train</a></li>
+          <li class="header__li"><a href="#card5">Results</a></li>
         </ul>
       </nav>
     </header>
@@ -125,7 +125,6 @@
         </div>
       </article>
 
-      <!-- TODO: THIS -->
       <article id="card3" class="card">
         <div class="div__header">
           <h2 class="main__h2">Color</h2>
@@ -185,19 +184,104 @@
           </p>
         </div>
       </article>
+
+      <!-- TODO: THIS -->
+      <article id="card4" class="card">
+        <div class="box div__initial">
+          <div class="div__header">
+            <h3 class="main__h3 nowrap">Initial Values</h3>
+          </div>
+          <p>
+            Stress:
+            <b><span id="stress-initial-value" class="nowrap"></span></b>
+          </p>
+          <p>
+            Fairness:
+            <b><span id="fairness-initial-value" class="nowrap"></span></b>
+          </p>
+        </div>
+        <div class="box div__coeff">
+          <div class="div__header">
+            <h3 class="main__h3 nowrap">Coefficients</h3>
+          </div>
+          <p>
+            Learning Rate:
+            <b><span id="learning-rate-value" class="nowrap"></span></b>
+          </p>
+          <p>
+            Momentum:
+            <b><span id="momentum-value" class="nowrap"></span></b>
+          </p>
+          <p>
+            Stress coeff:
+            <b><span id="stress-coeff-value" class="nowrap"></span></b>
+          </p>
+          <p>
+            Fairness coeff:
+            <b><span id="fair-coeff-value" class="nowrap"></span></b>
+          </p>
+        </div>
+        <div class="box div__train">
+          <div class="div__header">
+            <h3 class="main__h3 nowrap">Train</h3>
+          </div>
+          <button id="trainButton" class="main__button">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-send-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"
+              />
+            </svg>
+            <br />
+            Start
+          </button>
+        </div>
+      </article>
       <!-- TODO: THIS -->
 
-      <article id="card4" class="card">
-        <h2 class="main__h2 center">CARD 4</h2>
-      </article>
-
       <article id="card5" class="card">
-        <h2 class="main__h2 center">CARD 5</h2>
+        <div id="graph-container" class="main__graphBox">
+          <svg id="graph" width="500" height="500" class="svg__graph"></svg>
+        </div>
+        <div class="box div__final">
+          <div class="div__header">
+            <h3 class="main__h3 nowrap">Final Values</h3>
+          </div>
+          <p>
+            Stress:
+            <b><span id="stress-final-value" class="nowrap"></span></b>
+          </p>
+          <p>
+            Fairness:
+            <b><span id="fairness-final-value" class="nowrap"></span></b>
+          </p>
+        </div>
       </article>
     </main>
 
     <footer class="footer">
-      <p>&copy; Tommaso Piselli - University of Perugia</p>
+      <p>
+        <span
+          ><svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-github"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"
+            /></svg
+        ></span>
+        tommaso-piselli | University of Perugia
+      </p>
     </footer>
 
     <script src="static/js/reader.js"></script>
