@@ -1,4 +1,4 @@
-// Var defition
+// !Var defition
 let fileInput = d3.select("#fileInput");
 let jsonPreview = d3.select("#graphJson");
 let svg = d3.select("#graph");
@@ -31,7 +31,7 @@ fileInput.on("change", function () {
     try {
       graphData = JSON.parse(e.target.result);
 
-      // Display JSON content
+      // Display JSON
       let jsonStr = JSON.stringify(graphData, null, 2);
       jsonPreview.property("value", jsonStr);
 
@@ -44,12 +44,12 @@ fileInput.on("change", function () {
       let coords = graphData.nodes.map((node) => [node.x, node.y]);
       x = tf.variable(tf.tensor2d(coords));
 
-      // Init
+      // !COEFFICIENTS
       let niter = 1000;
       let maxIter = niter;
 
       let lr = 0.01;
-      let momentum = 0.9;
+      let momentum = 0.09;
       let optimizer = tf.train.momentum(lr, momentum, false);
 
       plotGraph(graphData);
@@ -58,8 +58,8 @@ fileInput.on("change", function () {
       let metrics = [];
 
       let coef = {
-        stress: 0.5,
-        fairness: 0.5,
+        stress: 0.8,
+        fairness: 0.2,
       };
 
       let graphDistance = graphData.shortestPath;
@@ -74,7 +74,7 @@ fileInput.on("change", function () {
         coef,
       };
 
-      // OUTPUT
+      // !INITIAL VALUES
       let pdist = pairwiseDistance(dataObj.x);
       stressInitialValue = stress(pdist, graphDistance, stressWeight)[1];
       fairnessInitialValue = fairness(graphData, x)[1];
@@ -98,7 +98,7 @@ fileInput.on("change", function () {
         .text(` ${momentum}`)
         .style("font-weight", "bold");
 
-      // Train
+      // !Train
       trainButton.on("click", function () {
         //console.log(dataObj.x.print());
         /*     let result = trainOneIter(dataObj, optimizer, true);
@@ -167,6 +167,7 @@ fileInput.on("change", function () {
   reader.readAsText(file);
 });
 
+// !COLOR
 colorButton.on("click", function () {
   let percent = d3.select("#percentSlider").property("value");
   colorNodes(graphData, percent);
@@ -176,6 +177,7 @@ colorButton.on("click", function () {
     .style("font-weight", "bold");
 });
 
+// !CENTER
 centerButton.on("click", function () {
   plotGraph(graphData);
 });

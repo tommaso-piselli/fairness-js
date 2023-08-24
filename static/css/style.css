@@ -38,22 +38,21 @@ textarea {
   --COLOR-BORDER: #565869;
   --COLOR-SHADOW: #303139;
   --COLOR-SLIDER: #333;
+  --COLOR-STROKE: #000;
   --COLOR-FONT-FADE: #d9d9e3;
   --COLOR-FONT: #000;
   --COLOR-HEADING: #fff;
   --COLOR-SIDEBAR: #202123;
-  --COLOR-STROKE: #303139;
-  --HIGHLIGHT-COLOR: #ffd900;
   --LINK-ACTIVE: #ffd900;
   --LINK-COLOR: #fff;
   --LINK-HOVER: #dfe0e4;
 
   /* THEME COLORS */
-  --MAIN-COLOR: #f0dc55;
-  --MAIN-COLOR-VARIANT: #e39729;
+  --MAIN-COLOR: #e39729;
+  --MAIN-COLOR-VARIANT: #f0dc55;
   --SECONDOARY-COLOR: #556af0;
   --SECONDOARY-COLOR-VARIANT: #2975e3;
-  --HIGHLIGHT-COLOR: #ffd900;
+  --HIGHLIGHT-COLOR: #000;
   --HIGHLIGHT-COLOR-FADE: #ffd9004a;
   --ERROR-COLOR: #cf6679;
 
@@ -69,7 +68,7 @@ textarea {
   --BOX-SHADOW: 0 0 10px 2px var(--COLOR-SHADOW);
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: auto) {
   :root {
     /* FONTS */
     --FF: "Nunito", sans-serif;
@@ -97,6 +96,10 @@ textarea {
     --LINK-ACTIVE: #ffd900;
     --LINK-COLOR: hsl(0, 0%, 96%);
     --LINK-HOVER: hsla(0, 0%, 96%, 0.6);
+
+    /* THEME COLORS */
+    --MAIN-COLOR: #f0dc55;
+    --MAIN-COLOR-VARIANT: #e39729;
   }
 }
 
@@ -349,7 +352,7 @@ a:active {
 .card {
   max-height: 100vh;
   scroll-margin-top: 8rem;
-  width: min(100%, 350px); /* ToDO: FIX AFTER */
+  width: min(100%, 350px);
   background-color: var(--BGCOLOR-LIGHTER);
   border-radius: var(--BORDER-RADIUS);
   box-shadow: var(--BOX-SHADOW);
@@ -442,16 +445,18 @@ input[type="file"] {
 
 .box span {
   font-weight: bold;
-  color: var(--MAIN-COLOR);
+  color: var(--HIGHLIGHT-COLOR);
   text-shadow: 0 0 10px var(--COLOR-SHADOW);
 }
 
 /* || GRAPH CARD */
-#card2 {
+#card2,
+#card5 {
   background-color: var(--COLOR-SIDEBAR);
 }
 
-.main__graphBox {
+.main__graphBox,
+.main__loss {
   background-color: var(--BGCOLOR-LIGHTER);
   width: 900px;
   height: 900px;
@@ -502,7 +507,7 @@ input[type="file"] {
 .div__slider label {
   font-family: "Nunito";
   font-weight: bold;
-  color: var(--MAIN-COLOR);
+  color: var(--HIGHLIGHT-COLOR);
   text-shadow: 0 0 10px var(--COLOR-SHADOW);
 }
 
@@ -560,7 +565,19 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .div__final {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.div__values {
   background-color: var(--BGCOLOR-LIGHTER);
+  margin: 1em;
+}
+
+.header__loss {
+  margin-top: 1em;
 }
 
 /* || MEDIA QUERY */
@@ -571,7 +588,20 @@ input[type="range"]::-webkit-slider-thumb {
     width: min(100%, 400px);
   }
 
-  .main__graphBox {
+  .main__graphBox,
+  .main__loss {
+    width: 250px;
+    height: 250px;
+  }
+}
+/* || XSMALL */
+@media screen and (min-width: 390px) {
+  .card {
+    width: min(100%, 400px);
+  }
+
+  .main__graphBox,
+  .main__loss {
     width: 350px;
     height: 350px;
   }
@@ -583,7 +613,8 @@ input[type="range"]::-webkit-slider-thumb {
     width: min(100%, 550px);
   }
 
-  .main__graphBox {
+  .main__graphBox,
+  .main__loss {
     width: 500px;
     height: 500px;
   }
@@ -595,7 +626,8 @@ input[type="range"]::-webkit-slider-thumb {
     width: min(100%, 740px);
   }
 
-  .main__graphBox {
+  .main__graphBox,
+  .main__loss {
     width: 650px;
     height: 650px;
   }
@@ -614,9 +646,10 @@ input[type="range"]::-webkit-slider-thumb {
     justify-content: space-evenly;
   }
 
-  .main__graphBox {
-    width: 650px;
-    height: 650px;
+  .main__graphBox,
+  .main__loss {
+    width: 750px;
+    height: 750px;
   }
 }
 
@@ -630,23 +663,27 @@ input[type="range"]::-webkit-slider-thumb {
 
   .card {
     height: 85.5vh;
-    width: min(100%, 400px);
+    width: min(100%, 1100px);
     align-items: center;
     justify-content: space-evenly;
   }
 
-  #card2 {
-    width: 850px;
-  }
-
   .main__graphBox {
-    width: 700px;
-    height: 700px;
+    width: 850px;
+    height: 850px;
   }
 
-  #card4,
-  #card5 {
+  #card4 {
     max-height: 83vh;
+  }
+
+  .main__loss {
+    width: 750px;
+    height: 750px;
+  }
+
+  #card5 {
+    height: auto;
   }
 }
 
@@ -665,18 +702,19 @@ input[type="range"]::-webkit-slider-thumb {
     justify-content: space-evenly;
   }
 
-  #card2 {
-    width: 750px;
+  #card2,
+  #card5 {
+    width: 800px;
   }
 
-  .main__graphBox {
+  .main__graphBox,
+  .main__loss {
     width: 630px;
     height: 630px;
   }
 
   #card3,
-  #card4,
-  #card5 {
+  #card4 {
     max-height: 83vh;
   }
 }
@@ -694,9 +732,18 @@ input[type="range"]::-webkit-slider-thumb {
     max-height: 85.5vh;
   }
 
+  .main__graphBox {
+    width: 630px;
+    height: 630px;
+  }
+
   #card4,
   #card5 {
     max-height: 83vh;
+  }
+
+  #card5 {
+    width: auto;
   }
 }
 
