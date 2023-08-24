@@ -184,7 +184,7 @@ function center_loss(x, center) {
   });
 }
 
-function trainOneIter(dataObj, optimizer, computeMetric = true) {
+async function trainOneIter(dataObj, optimizer, computeMetric = true) {
   let x = dataObj.x;
   // let x_array = x.arraySync();
   let graphDistance = dataObj.graphDistance;
@@ -247,22 +247,28 @@ function trainOneIter(dataObj, optimizer, computeMetric = true) {
   return { loss, metrics };
 }
 
-function train(dataObj, remainingIter, optimizer, callback) {
+async function train(dataObj, remainingIter, optimizer, callback) {
   if (remainingIter <= 0) {
     console.log(
       "Max iteration reached, please double click the play button to restart"
     );
   } else {
     let computeMetric = true; //remainingIter % 50 == 0;
-    let { loss, metrics } = trainOneIter(dataObj, optimizer, computeMetric);
-    if (callback) {
-      callback({
-        remainingIter,
-        loss: loss.dataSync()[0],
-        metrics,
-      });
-    }
-    train(dataObj, remainingIter - 1, optimizer, callback);
+    setTimeout(async () => {
+      let { loss, metrics } = await trainOneIter(
+        dataObj,
+        optimizer,
+        computeMetric
+      );
+      if (callback) {
+        callback({
+          remainingIter,
+          loss: loss.dataSync()[0],
+          metrics,
+        });
+      }
+      train(dataObj, remainingIter - 1, optimizer, callback);
+    }, 5);
   }
 }
 

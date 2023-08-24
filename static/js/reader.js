@@ -128,7 +128,7 @@ fileInput.on("change", function () {
           }
           niter -= 1;
           console.log("N°iter:" + niter);
-          if (niter % 2 == 0) {
+          if (niter % 10 == 0) {
             let x_arr = postprocess(x.arraySync(), graph);
             updateNodePosition(dataObj.graph, x_arr);
             plotGraph(dataObj.graph);
