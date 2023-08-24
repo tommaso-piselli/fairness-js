@@ -181,3 +181,8 @@ colorButton.on("click", function () {
 centerButton.on("click", function () {
   plotGraph(graphData);
 });
+
+// !RESIZE
+window.onresize = function () {
+  plotGraph(graphData);
+};

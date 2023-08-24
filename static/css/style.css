@@ -68,7 +68,7 @@ textarea {
   --BOX-SHADOW: 0 0 10px 2px var(--COLOR-SHADOW);
 }
 
-@media (prefers-color-scheme: auto) {
+@media (prefers-color-scheme: dark) {
   :root {
     /* FONTS */
     --FF: "Nunito", sans-serif;
