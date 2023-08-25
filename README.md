@@ -14,12 +14,12 @@ The primary frameworks utilized are [Tensorflow.js](https://github.com/tensorflo
 In this section I will give some instructions for the general usage of the project.
 
 - If you want to test the project: you can go to the [github.pages](tommaso-piselli.github.io) directory of the project or clone the repo and use the [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) extension of vscode.
-- To <b>Load</b> the graph: if you cloned the repository, you will find the JSONs in the `data` subdirectory. Otherwise you can download [this](https://drive.google.com/uc?export=download&id=1cUDNkWZLD_kAtf8CRst3uuQKSxxUyDWL) zip file.
+- To <b>Load</b> the graph: if you cloned the repository, you will find the JSONs in the `data/` subdirectory. Otherwise you can download [this](https://drive.google.com/uc?export=download&id=1cUDNkWZLD_kAtf8CRst3uuQKSxxUyDWL) zip file.
 - Once the graph is load: you can choose the color percentage with the slider, this will calculate the fairness. Then you can press the <b>Train</b> button to start the training.
 
 ### Python
 
-If you want to rebuild the graphs, you can access the `preprocess` subdirectory and launch from your the `preprocess_random.py` file. \
+If you want to rebuild the graphs, you can access the `preprocess/` subdirectory and launch from your the `preprocess_random.py` file. \
 <br />
 Assuming you are in the project root, from your terminal you can write:
 
