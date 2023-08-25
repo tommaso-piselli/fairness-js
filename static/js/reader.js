@@ -50,7 +50,7 @@ fileInput.on("change", function () {
       let maxIter = niter;
 
       let lr = 0.01;
-      let momentum = 0.2;
+      let momentum = 0.9;
       let optimizer = tf.train.momentum(lr, momentum, false);
 
       plotGraph(graphData);
