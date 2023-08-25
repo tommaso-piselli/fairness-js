@@ -2,9 +2,12 @@
 
 ## Overview
 
-Inspired by recent papers published in the Machine Learning area, we try to present a novel approach to <b>Fairness</b> (i.e. absence of bias, prejudice) in the context of graph visualization. In fact, while substantially all graph drawing algorithms optimize global metrics of the computed layout and can easily incorporate local constraints (i.e. at vertex or edge level), few algorithms can deal with more general constraints at subgroup level. In contrast, a fair visualization should guarantee that no subgroup is favored in terms of readability, that is, the possible visual complexity of the representation is equally charged among the two sets, which becomes particularly challenging in the case the cardinalities of the two sets are unbalanced. \
+Motivated by recent papers published in the field of Machine Learning, we aim to introduce a fresh approach to addressing <b>Fairness</b> (meaning the mitigation of bias and prejudice) in graph visualization. While the majority of graph drawing algorithms primarily optimize global layout metrics and readily incorporate local restrictions at the vertex or edge level, only a handful of them can effectively manage broader constraints at the subgroup level. In contrast, a <b>fair visualization</b> should ensure that no particular subgroup is given preference in terms of legibility. This entails an equitable distribution of the potential visual complexity of the representation between the two sets. This task becomes especially particularly challenging when dealing with imbalanced cardinalities between the two sets.
+
 <br />
-This repository contains an implementation of a Machine Learning + Visualization model built to study <b>fair visualization of graphs</b>. Languague used: python for the preprocess, html/css for the UI, d3/javascript for the computing. The two main framework used are [Tensorflow.js](https://github.com/tensorflow/tfjs) and [Pytorch](https://github.com/pytorch/pytorch).
+Contained within this repository is an implementation of a model that combines Machine Learning and Visualization, designed to study the <b>fair visualization of graphs</b>. The implementation employs Python for preprocessing, HTML/CSS for the user interface, and d3/JavaScript for computations.
+
+The primary frameworks utilized are [Tensorflow.js](https://github.com/tensorflow/tfjs) and [Pytorch](https://github.com/pytorch/pytorch).
 
 ## Usage
 
