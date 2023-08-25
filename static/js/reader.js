@@ -9,6 +9,7 @@ let percentLabel = d3.select("#percentLabel");
 let centerButton = d3.select("#centerButton");
 let trainButton = d3.select("#trainButton");
 let svgLoss;
+let lossButton = d3.select("#lossButton");
 
 let stressInitialValue, fairnessInitialValue;
 let stressFinalValue, fairnessFinalValue;
@@ -49,7 +50,7 @@ fileInput.on("change", function () {
       let maxIter = niter;
 
       let lr = 0.01;
-      let momentum = 0.09;
+      let momentum = 0.2;
       let optimizer = tf.train.momentum(lr, momentum, false);
 
       plotGraph(graphData);
@@ -58,8 +59,8 @@ fileInput.on("change", function () {
       let metrics = [];
 
       let coef = {
-        stress: 0.8,
-        fairness: 0.2,
+        stress: 0.5,
+        fairness: 0.5,
       };
 
       let graphDistance = graphData.shortestPath;
@@ -128,6 +129,8 @@ fileInput.on("change", function () {
           }
           niter -= 1;
           console.log("N°iter:" + niter);
+          d3.select("#currentIteration").text(`${maxIter - niter}`);
+          d3.select("#maxIteration").text(`${maxIter}`);
           if (niter % 10 == 0) {
             let x_arr = postprocess(x.arraySync(), graph);
             updateNodePosition(dataObj.graph, x_arr);
@@ -150,10 +153,10 @@ fileInput.on("change", function () {
               .text(` ${record.loss.toFixed(2)}`)
               .style("font-weight", "bold");
           }
+          if (niter == 0) {
+            plotLoss(svgLoss, maxIter, losses);
+          }
         });
-
-        // Plot Loss
-        plotLoss(svgLoss, maxIter, losses);
       });
     } catch (error) {
       console.error("Errore durante la lettura del file", error);
