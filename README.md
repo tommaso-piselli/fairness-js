@@ -21,7 +21,7 @@ In this section I will give some instructions for the general usage of the proje
 
 If you want to rebuild the graphs, you can access the `preprocess` subdirectory and launch from your the `preprocess_random.py` file. \
 <br />
-From your terminal:
+Assuming you are in the project root, from your terminal you can write:
 
 ```bash
 cd preprocess/
@@ -32,10 +32,6 @@ python3 preprocess_random.py
 
 `torch networkx sklearn.preprocessing numpy` \
 To install Pytorch you can visit the official [webpage](https://pytorch.org/).
-
-## Implementation
-
-### Structure
 
 # 🔃 Changelog
 
