@@ -1,27 +1,17 @@
-# Fairness + Gradient Descent
+# Fairness JS
 
-### Theme Colors:
+## Overview
 
-#### 🔦 Light Theme:
+## Implementation
 
-- background: #FFFFFF
-- main color: #6200EE
-- secondary color: #3700B3
-- highlight color: #03DAC5
-- shadows: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23)
+## Usage
 
-#### 🕶️ Dark Theme:
+### Python Requirements
 
-- background: #121212 (black)
-- main color (borders, titles): #BB86FC (violet)
-- secondary color (box background): #1F1B24 (dark grey)
-- highlight color: #CF6679 (pale pink)
-- shadows: #424242 (grey)
-
-## 🐛 Known Bugs:
 
 # 🔃 Changelog
 
+> [25/08 🕐] Build 1.0 complete and ready to be reviewed \
 > [22/08 🕐] Third Card \
 > [22/08 🕐] Card Layout: Card 1 and 2\
 > [21/08 🕐] Start rewrite HTML and CSS for better understanding: Header and page layout\
