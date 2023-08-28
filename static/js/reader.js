@@ -49,7 +49,7 @@ fileInput.on("change", function () {
       let maxIter = niter;
 
       let lr = 0.01;
-      let momentum = 0.9;
+      let momentum = 0.5;
       let optimizer = tf.train.momentum(lr, momentum, false);
 
       plotGraph(graphData);
@@ -58,8 +58,8 @@ fileInput.on("change", function () {
       let metrics = [];
 
       let coef = {
-        stress: 0.5,
-        fairness: 0.5,
+        stress: 0.9,
+        fairness: 0.1,
       };
 
       let graphDistance = graphData.shortestPath;
@@ -83,7 +83,7 @@ fileInput.on("change", function () {
         .text(` ${stressInitialValue.toFixed(2)}`)
         .style("font-weight", "bold");
       d3.select("#fairness-initial-value")
-        .text(` ${fairnessInitialValue.toFixed(3)}`)
+        .text(` ${fairnessInitialValue.toFixed(4)}`)
         .style("font-weight", "bold");
       d3.select("#stress-coeff-value")
         .text(` ${coef.stress}`)
@@ -120,13 +120,14 @@ fileInput.on("change", function () {
             let avgLoss1 = math.mean(secondSlice);
             if (avgLoss1 > avgLoss0) {
               lr = Math.max(lr * 0.999, 0.001);
+              console.log(lr);
             }
           }
           niter -= 1;
-          console.log("N°iter:" + niter);
+          /* console.log("N°iter:" + niter); */
           d3.select("#currentIteration").text(`${maxIter - niter}`);
           d3.select("#maxIteration").text(`${maxIter}`);
-          if (niter % 10 == 0) {
+          if (niter % 2 == 0) {
             let x_arr = postprocess(x.arraySync(), graph);
             updateNodePosition(dataObj.graph, x_arr);
             plotGraph(dataObj.graph);
@@ -140,13 +141,14 @@ fileInput.on("change", function () {
               .text(` ${stressFinalValue.toFixed(2)}`)
               .style("font-weight", "bold");
             d3.select("#fairness-final-value")
-              .text(` ${fairnessFinalValue.toFixed(3)}`)
+              .text(` ${fairnessFinalValue.toFixed(4)}`)
               .style("font-weight", "bold");
             d3.select("#loss-value")
               .text(` ${record.loss.toFixed(2)}`)
               .style("font-weight", "bold");
           }
           if (niter == 0) {
+            /* plotGraph(dataObj.graph); */
             plotLoss(svgLoss, maxIter, losses);
             alert("TRAIN ENDED");
           }
@@ -170,7 +172,7 @@ colorButton.on("click", function () {
   colorNodes(graphData, percent);
   fairnessInitialValue = fairness(graphData, x)[1];
   d3.select("#fairness-initial-value")
-    .text(` ${fairnessInitialValue.toFixed(3)}`)
+    .text(` ${fairnessInitialValue.toFixed(4)}`)
     .style("font-weight", "bold");
 });
 
