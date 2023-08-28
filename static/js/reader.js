@@ -18,6 +18,7 @@ let blueNodes = [];
 let dataObj;
 let x;
 
+// !SLIDER VALUE
 percentSlider.on("input", function () {
   percentLabel.text(this.value + "%");
 });
@@ -32,16 +33,14 @@ fileInput.on("change", function () {
     try {
       graphData = JSON.parse(e.target.result);
 
-      // Display JSON
+      // !Display JSON
       let jsonStr = JSON.stringify(graphData, null, 2);
       jsonPreview.property("value", jsonStr);
 
-      // Display graph details
       d3.select("#graph-name").text(` ${graphData.name}`);
       d3.select("#vertex-count").text(` ${graphData.nodes.length}`);
       d3.select("#edge-count").text(` ${graphData.edges.length}`);
 
-      // New Coords Vect
       let coords = graphData.nodes.map((node) => [node.x, node.y]);
       x = tf.variable(tf.tensor2d(coords));
 
@@ -101,10 +100,6 @@ fileInput.on("change", function () {
 
       // !Train
       trainButton.on("click", function () {
-        //console.log(dataObj.x.print());
-        /*     let result = trainOneIter(dataObj, optimizer, true);
-        console.log(dataObj.x.print()); */
-
         train(dataObj, niter, optimizer, (record) => {
           metrics.push(record.metrics);
           losses.push(record.loss);
@@ -136,12 +131,10 @@ fileInput.on("change", function () {
             updateNodePosition(dataObj.graph, x_arr);
             plotGraph(dataObj.graph);
 
-            // OUTPUT
+            // !OUTPUT
             pdist = pairwiseDistance(dataObj.x);
             stressFinalValue = stress(pdist, graphDistance, stressWeight)[1];
             fairnessFinalValue = fairness(graphData, x)[1];
-
-            //console.log("Loss: " + record.loss);
 
             d3.select("#stress-final-value")
               .text(` ${stressFinalValue.toFixed(2)}`)
@@ -155,16 +148,17 @@ fileInput.on("change", function () {
           }
           if (niter == 0) {
             plotLoss(svgLoss, maxIter, losses);
+            alert("TRAIN ENDED");
           }
         });
       });
     } catch (error) {
-      console.error("Errore durante la lettura del file", error);
+      console.error("ERROR - Reading", error);
     }
   };
 
   reader.onerror = function () {
-    console.error("Errore durante il caricamento del file", reader.error);
+    console.error("ERROR - Loading", reader.error);
   };
 
   reader.readAsText(file);
