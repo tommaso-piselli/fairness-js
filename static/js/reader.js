@@ -9,6 +9,7 @@ let percentLabel = d3.select("#percentLabel");
 let centerButton = d3.select("#centerButton");
 let trainButton = d3.select("#trainButton");
 let svgLoss;
+let lossButton = d3.select("#lossButton");
 
 let stressInitialValue, fairnessInitialValue;
 let stressFinalValue, fairnessFinalValue;
@@ -17,6 +18,7 @@ let blueNodes = [];
 let dataObj;
 let x;
 
+// !SLIDER VALUE
 percentSlider.on("input", function () {
   percentLabel.text(this.value + "%");
 });
@@ -31,16 +33,14 @@ fileInput.on("change", function () {
     try {
       graphData = JSON.parse(e.target.result);
 
-      // Display JSON
+      // !Display JSON
       let jsonStr = JSON.stringify(graphData, null, 2);
       jsonPreview.property("value", jsonStr);
 
-      // Display graph details
       d3.select("#graph-name").text(` ${graphData.name}`);
       d3.select("#vertex-count").text(` ${graphData.nodes.length}`);
       d3.select("#edge-count").text(` ${graphData.edges.length}`);
 
-      // New Coords Vect
       let coords = graphData.nodes.map((node) => [node.x, node.y]);
       x = tf.variable(tf.tensor2d(coords));
 
@@ -49,7 +49,7 @@ fileInput.on("change", function () {
       let maxIter = niter;
 
       let lr = 0.01;
-      let momentum = 0.09;
+      let momentum = 0.5;
       let optimizer = tf.train.momentum(lr, momentum, false);
 
       plotGraph(graphData);
@@ -58,8 +58,8 @@ fileInput.on("change", function () {
       let metrics = [];
 
       let coef = {
-        stress: 0.8,
-        fairness: 0.2,
+        stress: 0.9,
+        fairness: 0.1,
       };
 
       let graphDistance = graphData.shortestPath;
@@ -83,7 +83,7 @@ fileInput.on("change", function () {
         .text(` ${stressInitialValue.toFixed(2)}`)
         .style("font-weight", "bold");
       d3.select("#fairness-initial-value")
-        .text(` ${fairnessInitialValue.toFixed(3)}`)
+        .text(` ${fairnessInitialValue.toFixed(4)}`)
         .style("font-weight", "bold");
       d3.select("#stress-coeff-value")
         .text(` ${coef.stress}`)
@@ -100,10 +100,6 @@ fileInput.on("change", function () {
 
       // !Train
       trainButton.on("click", function () {
-        //console.log(dataObj.x.print());
-        /*     let result = trainOneIter(dataObj, optimizer, true);
-        console.log(dataObj.x.print()); */
-
         train(dataObj, niter, optimizer, (record) => {
           metrics.push(record.metrics);
           losses.push(record.loss);
@@ -124,44 +120,47 @@ fileInput.on("change", function () {
             let avgLoss1 = math.mean(secondSlice);
             if (avgLoss1 > avgLoss0) {
               lr = Math.max(lr * 0.999, 0.001);
+              console.log(lr);
             }
           }
           niter -= 1;
-          console.log("N°iter:" + niter);
-          if (niter % 10 == 0) {
+          /* console.log("N°iter:" + niter); */
+          d3.select("#currentIteration").text(`${maxIter - niter}`);
+          d3.select("#maxIteration").text(`${maxIter}`);
+          if (niter % 2 == 0) {
             let x_arr = postprocess(x.arraySync(), graph);
             updateNodePosition(dataObj.graph, x_arr);
             plotGraph(dataObj.graph);
 
-            // OUTPUT
+            // !OUTPUT
             pdist = pairwiseDistance(dataObj.x);
             stressFinalValue = stress(pdist, graphDistance, stressWeight)[1];
             fairnessFinalValue = fairness(graphData, x)[1];
-
-            //console.log("Loss: " + record.loss);
 
             d3.select("#stress-final-value")
               .text(` ${stressFinalValue.toFixed(2)}`)
               .style("font-weight", "bold");
             d3.select("#fairness-final-value")
-              .text(` ${fairnessFinalValue.toFixed(3)}`)
+              .text(` ${fairnessFinalValue.toFixed(4)}`)
               .style("font-weight", "bold");
             d3.select("#loss-value")
               .text(` ${record.loss.toFixed(2)}`)
               .style("font-weight", "bold");
           }
+          if (niter == 0) {
+            /* plotGraph(dataObj.graph); */
+            plotLoss(svgLoss, maxIter, losses);
+            alert("TRAIN ENDED");
+          }
         });
-
-        // Plot Loss
-        plotLoss(svgLoss, maxIter, losses);
       });
     } catch (error) {
-      console.error("Errore durante la lettura del file", error);
+      console.error("ERROR - Reading", error);
     }
   };
 
   reader.onerror = function () {
-    console.error("Errore durante il caricamento del file", reader.error);
+    console.error("ERROR - Loading", reader.error);
   };
 
   reader.readAsText(file);
@@ -173,7 +172,7 @@ colorButton.on("click", function () {
   colorNodes(graphData, percent);
   fairnessInitialValue = fairness(graphData, x)[1];
   d3.select("#fairness-initial-value")
-    .text(` ${fairnessInitialValue.toFixed(3)}`)
+    .text(` ${fairnessInitialValue.toFixed(4)}`)
     .style("font-weight", "bold");
 });
 

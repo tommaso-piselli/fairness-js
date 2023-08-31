@@ -74,7 +74,7 @@ function plotGraph(graph) {
     .append("circle")
     .attr("cx", (d) => xScale(d.x))
     .attr("cy", (d) => yScale(d.y))
-    .attr("r", 4)
+    .attr("r", 3)
     .style("fill", (d) => d.color)
     .on("mouseover", function () {
       let data = d3.select(this).data()[0];
