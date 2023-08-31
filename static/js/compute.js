@@ -53,11 +53,8 @@ function pairwiseDistance(x) {
       .add(xNormSquared)
       .add(xNormSquared.transpose());
 
-    //console.log("pdistSquared before sqrt:", pdistSquared.arraySync());
     let epsilon = 1e-16;
     let pdist = pdistSquared.clipByValue(epsilon, Infinity).sqrt();
-
-    //console.log("pdistSquared after sqrt:", pdist.arraySync());
 
     return pdist;
   });
@@ -108,7 +105,7 @@ function stressNode(graphData, node) {
   });
 }
 
-// Normalized
+// PDIST Normalized
 function stressNodeNormalized(graphData, node, pdistNode) {
   return tf.tidy(() => {
     let graphDistance_node = tf.tensor(graphData.shortestPath[node]);
@@ -204,8 +201,6 @@ async function trainOneIter(dataObj, optimizer, computeMetric = true) {
     () => {
       let pdist = pairwiseDistance(x);
       let loss = tf.tidy(() => {
-        let vmin = [0, 0];
-        let vmax = [dataObj.graph.width, dataObj.graph.height];
         let l = center_loss(x, center);
         //console.log("Graph Center: " + l);
 
@@ -216,10 +211,8 @@ async function trainOneIter(dataObj, optimizer, computeMetric = true) {
             stressWeight
           );
           metrics.stress = m_st;
-          //console.log("(1.a)m_st: " + m_st);
           metrics.pdist = pdist_normalized;
           l = l.add(st.mul(coef.stress));
-          //console.log("(1)l: " + l);
         } else if (computeMetric) {
           let [st, m_st, pdist_normalized] = stress(
             graphDistance,
@@ -227,7 +220,6 @@ async function trainOneIter(dataObj, optimizer, computeMetric = true) {
             x
           );
           metrics.stress = m_st;
-          //console.log("(1.b)m_st: " + m_st);
           metrics.pdist = pdist_normalized;
         }
 
@@ -235,7 +227,6 @@ async function trainOneIter(dataObj, optimizer, computeMetric = true) {
           let [fair, m_fair] = fairness(graph, x);
           metrics.fairness = m_fair;
           l = l.add(fair.mul(coef.fairness));
-          //console.log("(2)l: " + l);
         }
         return l;
       });
