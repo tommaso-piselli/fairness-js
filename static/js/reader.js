@@ -103,12 +103,7 @@ fileInput.on("change", function () {
         train(dataObj, niter, optimizer, (record) => {
           metrics.push(record.metrics);
           losses.push(record.loss);
-          /* if (losses.length > maxPlotIter) {
-            losses = losses.slice(losses.length - maxPlotIter);
-          } */
-          /*  if (metrics.length > maxMetricSize) {
-            metrics = metrics.slice(metrics.length - maxMetricSize);
-          } */
+
           if (losses.length >= 10) {
             let n = losses.length;
             let firstSlice = losses.slice(
@@ -124,7 +119,6 @@ fileInput.on("change", function () {
             }
           }
           niter -= 1;
-          /* console.log("N°iter:" + niter); */
           d3.select("#currentIteration").text(`${maxIter - niter}`);
           d3.select("#maxIteration").text(`${maxIter}`);
           if (niter % 2 == 0) {
@@ -148,7 +142,6 @@ fileInput.on("change", function () {
               .style("font-weight", "bold");
           }
           if (niter == 0) {
-            /* plotGraph(dataObj.graph); */
             plotLoss(svgLoss, maxIter, losses);
             alert("TRAIN ENDED");
           }
