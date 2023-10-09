@@ -58,8 +58,8 @@ fileInput.on("change", function () {
       let metrics = [];
 
       let coef = {
-        stress: 0.9,
-        fairness: 0.1,
+        stress: 0.1,
+        fairness: 1000,
       };
 
       let graphDistance = graphData.shortestPath;
